@@ -40,9 +40,6 @@ function markSiteAsActive() {
       document.querySelector(".contact-site").classList.add("activeSite");
     }
   } catch (e) {
-    console.info(
-      "Sidebar: Site could not set as active! Only in testing eviroment."
-    );
   }
 }
 
