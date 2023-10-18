@@ -26,29 +26,50 @@ function resetPrioButtons() {
   const images = {};
   const buttons = {};
   priorities.forEach((priority) => {
-    if (priority == "urgent") {
-      images[priority] = document.getElementById(`urgentImg`);
-      buttons[priority] = document.getElementById(`urgentBtn`);
-    }
-    if (priority == "medium") {
-      images[priority] = document.getElementById(`mediumImg`);
-      buttons[priority] = document.getElementById(`mediumBtn`);
-    }
-    if (priority == "low") {
-      images[priority] = document.getElementById(`lowImg`);
-      buttons[priority] = document.getElementById(`lowBtn`);
-    }
+    checkPriority(priority);
     images[priority].src = `./img/prio_${priority}_color.png`;
     buttons[priority].classList.remove(`${priority}-active`);
   });
 }
 
+
+/**
+ * Checking if priority is urgent, medium or low. 
+ * 
+ * @param {*} priority
+ */
+function checkPriority(priority){
+  if (priority == "urgent") {
+    images[priority] = document.getElementById(`urgentImg`);
+    buttons[priority] = document.getElementById(`urgentBtn`);
+  } else if (priority == "medium") {
+    images[priority] = document.getElementById(`mediumImg`);
+    buttons[priority] = document.getElementById(`mediumBtn`);
+  } else if (priority == "low") {
+    images[priority] = document.getElementById(`lowImg`);
+    buttons[priority] = document.getElementById(`lowBtn`);
+  }
+}
+
 /**
  * Collects and returns the edited task data as an object with updated values.
- *
+ * 
  * @returns {Object} The edited task object with updated values.
  */
 function getEditedVaraible() {
+  settingTaskValues();
+  getEditAssignedContacts();
+}
+
+function editTask(i) {
+  window.location.href = `addtask.html?index=${i}`;
+}
+
+
+/**
+ * Setting the values of the edited task for a new task to be generated.
+ */
+function settingTaskValues() {
   let currentTask = userObj["tasks"][taskIndex];
   let title = document.getElementById("editTitle");
   let description = document.getElementById("editDescription");
@@ -61,29 +82,41 @@ function getEditedVaraible() {
     prio = currentTask["prio"];
   }
   const id = currentTask["id"];
-  getEditAssignedContacts();
+  settingNewTask(title, description, status, category, categoryColor, date, prio, id)
+}
+
+
+/**
+ * Setting the new task.
+ *
+ * @param {*} t
+ * @param {*} de
+ * @param {*} s
+ * @param {*} c
+ * @param {*} cC
+ * @param {*} d
+ * @param {*} p
+ * @param {*} id
+ * @returns {{ titel: t; description: de; status: ans; category: c; categoryColor: cC; assigned: {}; date: d; prio: p; subtasks: {}; id: id; }}
+ */
+function settingNewTask(t, de, s, c, cC, d, p, id){
   let newTask = {
-    titel: title.value,
-    description: description.value,
-    status: status,
-    category: category,
-    categoryColor: categoryColor,
+    titel: t.value, 
+    description: de.value,
+    status: s,
+    category: c,
+    categoryColor: cC,
     assigned: editedAssigned,
-    date: date.value,
-    prio: prio,
+    date: d.value,
+    prio: p,
     subtasks: newSubtasks,
     id: id,
   };
   return newTask;
 }
 
-function editTask(i) {
-  window.location.href = `addtask.html?index=${i}`;
-}
-
 /**
  * Sets the active state and updates the image of the priority button in the edit view.
- *
  * @param {Object} currentTask - The task object containing priority information.
  */
 function setEditButtons(currentTask) {
@@ -100,7 +133,6 @@ function setEditButtons(currentTask) {
 /**
  * Updates the task priority selection in the edit view based on the selected button.
  * Adjusts the active classes and image sources accordingly.
- *
  * @param {HTMLElement} button - The priority button that was clicked.
  * @param {string} priority - The priority level associated with the button.
  */
@@ -111,6 +143,19 @@ function getEditTaskPrio(button, priority) {
     medium: document.getElementById("edit-medium-img"),
     urgent: document.getElementById("edit-urgent-img"),
   };
+  checkBtnPriority(buttons);
+  button.classList.add(priority + "-active");
+  images[priority].src = `./img/prio_${priority}.png`;
+  currentPrio = priority;
+}
+
+
+/**
+ * Checking the priority of buttons to set the correct colors/images.
+ *
+ * @param {*} buttons
+ */
+function checkBtnPriority(buttons) {
   buttons.forEach(function (btn) {
     if (btn.classList.contains(priority + "-active")) {
       btn.classList.remove(priority + "-active");
@@ -122,9 +167,6 @@ function getEditTaskPrio(button, priority) {
       images.urgent.src = "./img/prio_urgent_color.png";
     }
   });
-  button.classList.add(priority + "-active");
-  images[priority].src = `./img/prio_${priority}.png`;
-  currentPrio = priority;
 }
 
 /**
@@ -143,7 +185,6 @@ function renderUserContacts() {
 
 /**
  * Toggles the state of an edit checkbox image between checked and unchecked.
- *
  * @param {number} i - The index of the checkbox to be toggled.
  */
 function changeEditCheckbox(i) {
@@ -157,7 +198,6 @@ function changeEditCheckbox(i) {
 
 /**
  * Initiates the editing of a generated subtask by replacing its content with an edit input.
- *
  * @param {number} index - The index of the subtask to be edited.
  */
 function editGeneratedSubtask(index) {
@@ -173,7 +213,6 @@ function editGeneratedSubtask(index) {
 /**
  * Accepts the edited subtask input and updates the subtask at the specified index.
  * Renders the updated subtask content.
- *
  * @param {number} index - The index of the subtask to be updated.
  */
 function acceptEditEditedSubtask(index) {
@@ -215,6 +254,18 @@ function toggleEditAssignedMenu() {
   const input = document.querySelector(".assigned-input input");
   contacts.classList.toggle("display-none");
   contactContainer.classList.toggle("remove-border");
+  settingEvenListener(contacts, contactContainer, input);
+}
+
+
+/**
+ * Setting evenListeners.
+ *
+ * @param {*} contacts
+ * @param {*} contactContainer
+ * @param {*} input
+ */
+function settingEvenListener(contacts, contactContainer, input) {
   if (!input) {
     document.addEventListener("click", (event) => {
       if (!contactContainer.contains(event.target)) {
@@ -242,7 +293,6 @@ function renderEditSubtasks() {
 
 /**
  * Copies subtasks from the given current task and returns a new array of subtasks.
- *
  * @param {Object} currentTask - The current task containing subtasks.
  * @returns {Array} An array of new subtasks copied from the current task.
  */
@@ -274,7 +324,6 @@ function addEditedSubtask() {
 
 /**
  * Deletes an edited subtask from the list and renders the updated subtask content.
- *
  * @param {number} index - The index of the subtask to be deleted.
  */
 function deleteGeneratedEditSubtask(index) {
