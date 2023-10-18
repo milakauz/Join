@@ -71,12 +71,8 @@ function renderTasksByStatus(status, containerId, assignmentIdPrefix) {
   );
   filteredTasks.forEach((task, index) => {
     const { assigned } = task;
-    document.getElementById(containerId).innerHTML += htmlTemplateByStatus(
-      task,
-      index,
-      getPriority(task),
-      status
-    );
+    document.getElementById(containerId).innerHTML += 
+    htmlTemplateByStatus(task, index, getPriority(task), status);
     // checkSubtasks(task);
     const idAssigned = document.getElementById(`${assignmentIdPrefix}${index}`);
     idAssigned.innerHTML = assigned
@@ -258,13 +254,10 @@ function moveTo(status, element) {
   if (!element || !status) {
     return 0;
   }
-
   element.classList.remove("moveBackground");
-
   let index = userObj.tasks.findIndex(
     (task) => task.status == currentStatus && task.titel == currentTitel
   );
-
   if (index !== -1) {
     userObj.tasks[index].status = status;
     setItem(userObj.email, JSON.stringify(userObj));
@@ -378,20 +371,21 @@ function closeAddTaskModal() {
 function checkIfDropAreaEmpty() {
   document.querySelectorAll(".dropArea").forEach((area) => {
     if (!area.hasChildNodes()) {
-      if (area.id == "todo") {
-        area.innerHTML = htmlTemplateEmptyDropArea("No task To do");
-      }
-      if (area.id == "inProgress") {
-        area.innerHTML = htmlTemplateEmptyDropArea("No task in progress");
-      }
-      if (area.id == "awaitingFeedback") {
-        area.innerHTML = htmlTemplateEmptyDropArea("No task awaiting Feedback");
-      }
-      if (area.id == "done") {
-        area.innerHTML = htmlTemplateEmptyDropArea("No task done");
-      }
+      checkingStatus(area);
     }
   });
+}
+
+function checkingStatus(area) {
+  if (area.id == "todo") {
+    area.innerHTML = htmlTemplateEmptyDropArea("No task To do");
+  } else if (area.id == "inProgress") {
+    area.innerHTML = htmlTemplateEmptyDropArea("No task in progress");
+  } else if (area.id == "awaitingFeedback") {
+    area.innerHTML = htmlTemplateEmptyDropArea("No task awaiting Feedback");
+  } else if (area.id == "done") {
+    area.innerHTML = htmlTemplateEmptyDropArea("No task done");
+  }
 }
 
 /**
@@ -471,18 +465,27 @@ function getProperty(element, index) {
       image: "./img/checkbox_checked.png",
     },
   ];
+  checkingCheckbox(properties, images);
+}
+
+
+/**
+ * Checking which subtasks are checked.
+ *
+ * @param {*} properties
+ * @param {*} images
+ */
+function checkingCheckbox(properties, images) {
   for (let i = 0; i < properties.length; i++) {
     const property = properties[i]["property"];
     const checkbox = document.getElementById(`subtask-checkbox${i}`);
     if (property == "unchecked") {
       checkbox.src = images[0].image;
-    }
-    if (property == "checked") {
+    } else if (property == "checked") {
       checkbox.src = images[1].image;
     }
   }
 }
-
 /**
  * Generates the HTML header for subtasks.
  *
@@ -562,12 +565,7 @@ function searchTask() {
  * @param {string} containerId - The ID of the container where the tasks should be rendered.
  * @param {string} assignmentIdPrefix - The prefix of the ID for the assignment container.
  */
-function renderSearchTasksByStatus(
-  search,
-  status,
-  containerId,
-  assignmentIdPrefix
-) {
+function renderSearchTasksByStatus(search, status, containerId, assignmentIdPrefix) {
   const filteredTasks = userObj.tasks.filter((t) => t["status"] === status);
   document.getElementById(containerId).innerHTML = "";
   for (let i = 0; i < filteredTasks.length; i++) {
