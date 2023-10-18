@@ -1,6 +1,5 @@
 /**
  * Opens a modal. If the window width is less than 950, redirects to the "addtask.html" page.
- *
  * @param {HTMLElement} modal - The modal element to be opened.
  */
 function openModal(modal) {
@@ -18,7 +17,6 @@ function openModal(modal) {
 
 /**
  * Opens an edit modal.
- *
  * @param {HTMLElement} modal - The edit modal element to be opened.
  */
 function openEditModal(modal) {
@@ -31,7 +29,6 @@ function openEditModal(modal) {
 
 /**
  * Redirects the user to the specified URL.
- *
  * @param {string} url - The URL to redirect to.
  */
 function redirect(url) {
@@ -40,7 +37,6 @@ function redirect(url) {
 
 /**
  * Closes the provided modal with an animation.
- *
  * @param {HTMLElement} modal - The modal element to be closed.
  */
 function closeModal(modal) {
@@ -57,7 +53,6 @@ function closeModal(modal) {
 
 /**
  * Closes the edit modal with an animation.
- *
  * @param {HTMLElement} modal - The edit modal element to be closed.
  */
 function closeEditModal(modal) {
@@ -89,7 +84,6 @@ function showLoadingScreen() {
   spinnerContainer.style.display = "flex";
   spinnerContainer.style.justifyContent = "center";
   spinnerContainer.style.alignItems = "center";
-
   let spinnerInner = document.createElement("div");
   spinnerInner.style.border = "16px solid #f3f3f3";
   spinnerInner.style.borderTop = "16px solid #3498db";
