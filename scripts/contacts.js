@@ -21,6 +21,7 @@ const editDialogElements = {
   closeDialog: document.getElementById("dialog__editClose"),
   saveBtn: document.getElementById("dialog__saveBtn"),
   deleteBtn: document.getElementById("dialog__editDeleteBtn"),
+  initialsCircle: document.getElementById('initialsCircle')
 };
 
 const createDialogElements = {
@@ -318,7 +319,7 @@ function updateDialogElements(card) {
   dialogElements["profilePic"] = document.querySelector(".dialog__circle");
   const infoCardName = card.querySelector(".info__name").innerText.trim();
   let clickedContact = getContact(infoCardName);
-  changeDialogInfo(clickedContact, cardId);
+  changeDialogInfo(clickedContact);
   dialogContact.show();
 }
 
@@ -373,7 +374,7 @@ function getContactIndex(searchedName) {
 }
 
 /**
- * generating style and rendering HTML for dialog-window with contact information
+ * Generating style and rendering HTML for dialog-window with contact information
  *
  * @function
  * @param {Object} contact
@@ -419,7 +420,7 @@ function deleteInitial(name) {
 }
 
 /**
- * editing contact within edit-dialog-window
+ * Editing contact within edit-dialog-window.
  *
  * @function
  */
@@ -427,6 +428,8 @@ function editContact() {
   editDialogElements.editDialog.classList.remove("resp-none");
   editDialogElements.editDialog.classList.add("show-edit-dialog");
   dialogBackground.classList.remove("d-none");
+  editDialogElements.initialsCircle.innerHTML = `${getInitials(dialogElements.name.innerText)}`;
+  editDialogElements.initialsCircle.style.backgroundColor = `${colors[getColorSign(dialogElements.name.innerText)]}`;
   editDialogElements.inputName.value = dialogElements.name.innerText;
   editDialogElements.inputEmail.value = dialogElements.email.innerText;
   editDialogElements.inputPhone.value = dialogElements.phone.innerText;
