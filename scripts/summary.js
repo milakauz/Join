@@ -53,7 +53,7 @@ function findNextDeadline() {
 }
 
 /**
- * Returns the formatted next upcoming deadline date.
+ * Returning the formatted next upcoming deadline date.
  * If there are no deadline dates, it returns a message indicating no deadline set.
  *
  * @returns {string} The formatted next upcoming deadline date or a "No deadline set" message.
@@ -73,7 +73,7 @@ function returnNextDeadline() {
 }
 
 /**
- * Formats a date string into a more human-readable format.
+ * Formatting a date string into a more readable format.
  *
  * @param {string} dateToFormat - The date string to be formatted (YYYY-MM-DD).
  * @returns {string} The formatted date in the format: Month Day, Year (e.g., "January 01, 2023").
@@ -95,13 +95,18 @@ function formateDate(dateToFormat) {
     "December",
   ];
   const year = date.getFullYear();
-  let month = months[date.getMonth()];
+  const month = months[date.getMonth()];
   const day = date.getDate();
-
-  let formatedDate = month + " " + day + ", " + year;
-  return formatedDate;
+  return `${month} ${day}, ${year}`;
 }
 
+
+/**
+ * Checking if the given date (deadline) is before today's date, indicating that a deadline has expired. 
+ * If the deadline has expired, it's updating the text content of the element.
+ *
+ * @param {*} date - The date of the deadline to be checked. 
+ */
 function checkIfDeadlineExpired(date) {
   const today = new Date();
   if(today > date) {
@@ -110,7 +115,7 @@ function checkIfDeadlineExpired(date) {
 }
 
 /**
- * Retrieves valid deadline dates from user tasks and populates the 'deadlines' array.
+ * Retrievin valid deadline dates from user tasks and populates the 'deadlines' array.
  *
  * @returns {void} This function does not return a value.
  */
@@ -124,7 +129,7 @@ function getDeadlineDates() {
 }
 
 /**
- * Checks if a given date string is in the valid "YYYY-MM-DD" format.
+ * Checking if a given date string is in the valid "YYYY-MM-DD" format.
  *
  * @param {string} date - The date string to be validated.
  * @returns {boolean} Returns true if the date is in valid format, otherwise false.
@@ -135,7 +140,7 @@ function checkIfDateIsValid(date) {
 }
 
 /**
- * Updates the task count displayed on the board for different status categories.
+ * Updating the task count displayed on the board for different status categories.
  * Retrieves task counts and board variables to update the UI elements.
  *
  * @returns {void} This function does not return a value.
@@ -152,7 +157,7 @@ function renderTaskCount() {
 }
 
 /**
- * Retrieves references to various board-related HTML elements.
+ * Retrieving references to various board-related HTML elements.
  *
  * @returns {Object} An object containing references to different board-related HTML elements.
  * @property {HTMLElement} tasks - The element displaying the total task count.
@@ -177,7 +182,7 @@ function getBoardVariable() {
 }
 
 /**
- * Counts the number of tasks in different status categories.
+ * Counting the amount of tasks in different status categories.
  * Iterates through user tasks and tallies the tasks for each status.
  *
  * @returns {Object} An object containing the count of tasks for each status category.
@@ -204,7 +209,7 @@ function countStatus() {
 }
 
 /**
- * Counts the number of tasks with urgent priority.
+ * Counting the ampount of tasks with urgent priority.
  * Iterates through user tasks and tallies tasks with "urgent" priority.
  *
  * @returns {Object} An object containing the count of tasks with "urgent" priority.
@@ -225,10 +230,10 @@ function countUrgentPrio() {
 }
 
 /**
- * Sets a time-based greeting on the page based on the current hour.
- * Uses the current hour to display a suitable greeting message.
- *
- * @returns {void} This function does not return a value.
+ * Setting a greeting text on the landing page based on the current hour.
+ * 
+ * @returns {void} - This function does not return a value.
+ * 
  */
 function setTime() {
   if (currentHour() < 10) {
@@ -243,7 +248,7 @@ function setTime() {
 }
 
 /**
- * Retrieves the current hour of the day.
+ * Retrieving the current hour of the day.
  *
  * @returns {number} The current hour of the day (0-23).
  */
@@ -253,8 +258,8 @@ function currentHour() {
 }
 
 /**
- * Changes the source of an image to display a white checkmark icon.
- * Updates the source of an image element to display a white checkmark icon image.
+ * Changing the source of an image to display a white checkmark icon.
+ * Updating the source of an image element to display a white checkmark icon image.
  *
  * @returns {void} This function does not return a value.
  */
@@ -263,10 +268,10 @@ function whiteOk() {
 }
 
 /**
- * Changes the source of an image to display a dark checkmark icon.
- * Updates the source of an image element to display a dark checkmark icon image.
+ * Changing the source of an image to display a dark checkmark icon.
+ * Updating the source of an image element to display a dark checkmark icon image.
  *
- * @returns {void} This function does not return a value.
+ * @returns {void} - This function does not return a value.
  */
 function darkOk() {
   document.getElementById("ok").src = "./img/icon_ok.svg";
