@@ -7,7 +7,6 @@ function showTopDown(message) {
   const popup = document.createElement("div");
   popup.id = "topdownMessages";
   document.body.appendChild(popup);
-
   Object.assign(popup.style, {
     padding: "10px",
     backgroundColor: "#2a3647",
@@ -25,6 +24,7 @@ function showTopDown(message) {
   popup.innerHTML = message;
 
   let startTime;
+
   function animate(time) {
     if (!startTime) startTime = time;
     const elapsed = time - startTime;
@@ -47,7 +47,7 @@ function showTopDown(message) {
 }
 
 /**
- * Renders the top logo with the initials of the user's name.
+ * Rendeing the top logo with the initials of the user's name.
  *
  * @param {Object} userObj - The user object containing the user's details.
  * @returns {string} - Returns the initials of the user's name.
@@ -61,7 +61,7 @@ function renderTopLogo(userObj) {
 }
 
 /**
- * Capitalizes the first letter of every word in the given string.
+ * Capitalizing the first letter of every word in the given string.
  *
  * @param {string} input - The string to be transformed.
  * @returns {string} - Returns the transformed string with capitalized first letters.
@@ -74,7 +74,8 @@ function capitalizeFirstLetterOfEveryWord(input) {
 }
 
 /**
- * Hashes a given password using SHA-256.
+ * Hashing a given password using SHA-256.
+ * 
  * @async
  * @param {string} password - The plain text password to be hashed.
  * @returns {Promise<string>} - The hashed password as a hexadecimal string.
@@ -90,7 +91,8 @@ async function hashPassword(password) {
 }
 
 /**
- * Extracts the first character from the last word of a given name.
+ * Extracting the first character from the last word of a given name.
+ * 
  * @param {string} name - The name from which to extract the sign.
  * @returns {string} The extracted sign character.
  */
@@ -100,7 +102,8 @@ function getColorSign(name) {
 }
 
 /**
- * Redirects the browser to a given URL and clears the status from local storage.
+ * Redirecting the browser to a given URL and clears the status from local storage.
+ * 
  * @param {string} url - The URL to which to redirect.
  */
 function redirect(url) {
