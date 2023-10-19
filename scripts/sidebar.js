@@ -57,7 +57,6 @@ let isDropdownOpen = false;
 function toggleHiddenDropdown() {
   let menu = document.getElementById("sidebarDropdown");
   menu.classList.remove("display-none");
-
   if (!isDropdownOpen) {
     // Fügen Sie den Event-Listener hinzu, wenn das Dropdown zum ersten Mal geöffnet wird
     document.addEventListener("click", closeHiddenDropdown);
@@ -74,7 +73,6 @@ function toggleHiddenDropdown() {
 function closeHiddenDropdown(event) {
   let dropdown = document.getElementById("sidebarDropdown");
   let menu = document.getElementById("hiddenSidebarMenu");
-
   if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
     dropdown.classList.add("display-none");
     document.removeEventListener("click", closeHiddenDropdown); // Entfernen Sie den Event-Listener
