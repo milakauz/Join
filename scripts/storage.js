@@ -3,7 +3,7 @@ const STORAGE_TOKEN = "GHMKBVSIJS9UAFWJW2OJRB79RP5F43VYC2LKTDYQ";
 const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
 
 /**
- * Stores a key-value pair to a remote storage using a POST request.
+ * Storing a key-value pair to a remote storage using a POST request.
  *
  * @param {string} key - The key under which the value should be stored.
  * @param {*} value - The value to be stored.
@@ -18,7 +18,7 @@ async function setItem(key, value) {
 }
 
 /**
- * Retrieves a value from remote storage using the provided key.
+ * Retrieving a value from remote storage using the provided key.
  *
  * @param {string} key - The key for which to retrieve the value.
  * @returns {Promise<*>} A promise that resolves with the value associated with the given key, or rejects with an error message.
@@ -37,7 +37,8 @@ async function getItem(key) {
 }
 
 /**
- * Retrieves the logged-in user's data. If no user is logged in, redirects to the index page.
+ * Retrieving the logged-in user's data. If no user is logged in, redirects to the index page.
+ * 
  * @returns {Promise<Object|number>} A promise that resolves with the user object or 1 if no active user is found.
  */
 async function getLoggedInUser() {
@@ -50,12 +51,19 @@ async function getLoggedInUser() {
   return userObj;
 }
 
+
+/**
+ * Checking if a user is currently logged in by looking for the adequate item in local storage.
+ *
+ * @returns {*}
+ */
 function isUserLoggedIn() {
   return localStorage.getItem("activeUser");
 }
 
 /**
- * Extracts initials from a given name.
+ * Extracting initials from a given name.
+ * 
  * @param {string} name - The full name from which to extract initials.
  * @returns {string} The extracted initials from the name.
  */
@@ -69,7 +77,7 @@ function getInitials(name) {
 }
 
 /**
- * Saves a status to local storage.
+ * Saving a status to local storage.
  * @param {*} value - The status value to be saved.
  */
 function saveStatusLocalstorage(value) {
@@ -78,14 +86,14 @@ function saveStatusLocalstorage(value) {
 }
 
 /**
- * Removes the status from local storage.
+ * Removing the status from local storage.
  */
 function spliceStatusLocalStorage() {
   localStorage.removeItem("status");
 }
 
 /**
- * Retrieves a status from local storage and logs it to the console.
+ * Retrieving a status from local storage and logs it to the console.
  * @returns {*} The status retrieved from local storage.
  */
 function getStatusLocalStorage() {
