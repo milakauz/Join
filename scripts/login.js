@@ -1,3 +1,62 @@
+//Only for showing some data in the project to be tested.
+const DEFAULT_TASKS = [
+  {
+    titel: "HTML Template",
+    description: "Create basic HTML template to show tasks.",
+    status: "to do",
+    category: "Develop ",
+    categoryColor: "#ffea00",
+    assigned: [],
+    date: "2023-08-25",
+    prio: "medium",
+    subtasks: [
+      { title: "Create file", property: "unchecked" },
+      { title: "Add template function", property: "unchecked" },
+    ],
+    id: 0,
+  },
+  {
+    titel: "Publish App",
+    description: "Publish our App on the Web",
+    status: "in progress",
+    category: "Sales ",
+    categoryColor: "#FC71FF",
+    assigned: ["Laura Miller"],
+    date: "2023-09-09",
+    prio: "low",
+    subtasks: [],
+    id: 1,
+  },
+];
+
+const DEFAULT_CONTACTS = [
+  {
+    name: "Laura Miller",
+    email: "laura-miller@protonmail.com",
+    number: "0178654825",
+  },
+  {
+    name: "Peter Lustig",
+    email: "peter-lustig@gmail.com",
+    number: "0179554321",
+  },
+];
+
+const DEFAULT_CATEGORIES = [
+  {
+    name: "Sales",
+    color: "#FC71FF",
+  },
+  {
+    name: "Backoffice",
+    color: "#38EAFF",
+  },
+  {
+    name: "Design",
+    color: "#FFC701",
+  },
+];
+
 //Globals
 let users = [];
 let loginForm = document.getElementById("loginForm");
@@ -47,19 +106,21 @@ async function loadUsers() {
   }
 }
 
-/**
- * Checks if the confirmed password matches the original password.
- * @param {string} password - The original password.
- * @param {string} confirmedPassword - The confirmed password to check against.
- * @returns {boolean} Returns true if the passwords match, otherwise false.
- */
-function confirmPasswordIsSame(password, confirmedPassword) {
-  if (password == confirmedPassword) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// /**
+//  * Checks if the confirmed password matches the original password.
+//  * @param {string} password - The original password.
+//  * @param {string} confirmedPassword - The confirmed password to check against.
+//  * @returns {boolean} Returns true if the passwords match, otherwise false.
+//  */
+// function confirmPasswordIsSame(password, confirmedPassword) {
+//   if (password == confirmedPassword) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+
 /**
  * Registers a new user by checking the user's input and adding them to the system.
  * @async
@@ -101,34 +162,31 @@ function handleExistingUser(signupBtn) {
 }
 
 /**
- * Checks if the passwords provided match and if so, adds the user to the system.
+ * Handling the password matching logic and user creation process.
+ * 
  * @async
- * @param {Object} elements - The form elements.
- * @returns {Promise<boolean>} - True if the passwords match, false otherwise.
+ * @param {Object} elements - Object containing the user input elements.
+ * @returns {boolean} - True if the passwords match or the user is created, false otherwise.
  */
 async function handlePasswordMatch(elements) {
-  if (
-    confirmPasswordIsSame(
-      elements.password.value,
-      elements.confirmPassword.value
-    )
-  ) {
-    let hashedPwd = await hashPassword(elements.password.value);
-    users.push({
-      name: elements.name.value,
-      email: elements.email.value,
-      password: hashedPwd,
-    });
-    await setItem("users", JSON.stringify(users));
-    await createUserObject(
-      elements.name.value,
-      elements.email.value,
-      hashedPwd
-    );
-
-    return true;
+  if (!passwordsMatch(elements.password.value, elements.confirmPassword.value)) {
+    return false
   }
-  return false;
+  let hashedPwd = await hashPassword(elements.password.value);
+  await createUserAndStore(elements.name.value, elements.email.value, hashedPwd);
+  return true;
+}
+
+
+/**
+ * Checking if the given password and the confirmation password are matching.
+ *
+ * @param {*} password - The password given by the user.
+ * @param {*} confirmPassword - The password of confirmation.
+ * @returns {boolean} - True if the passwords match - false otherwise.
+ */
+function passwordsMatch(password, confirmPassword) {
+  return password === confirmPassword;
 }
 
 /**
@@ -158,14 +216,53 @@ async function finalizeRegistration(elements) {
   showTopDown("You are registered!");
 }
 
+
+/**
+ * Creating a new user and storing it in the database.
+ *
+ * @async
+ * @param {*} name - The name of the user.
+ * @param {*} email - The email of the user.
+ * @param {*} hashedPwd - The hashed password of the user.
+ * @returns {*}
+ */
+async function createUserAndStore(name, email, hashedPwd) {
+  const user = {
+    name: name,
+    email: email,
+    password: hashedPwd,
+  };
+  users.push(user);
+  await setItem("users", JSON.stringify(users));
+  await createUserObject(name, email, hashedPwd);
+}
+
+
+/**
+ * Checking if a user with the given email already exists in database.
+ *
+ * @param {*} email - The email to check for.
+ * @returns {boolean} - True if the user exists - false otherwise. 
+ */
 function checkIfUserExists(email) {
   return users.some((user) => user.email === email);
 }
 
+/**
+ * Resetting the value of the given input field.
+ *
+ * @param {HTMLInputElement} input - The input field to be reset.
+ */
 function resetForm(input) {
   input.value = "";
 }
 
+
+/**
+ * Retrieving user input from login form.
+ *
+ * @returns {Object} - Object containing email, password and checkbox-status.
+ */
 function getLoginFormInput() {
   const input = {
     email: document.getElementById("email").value,
@@ -176,7 +273,8 @@ function getLoginFormInput() {
 }
 
 /**
- * Logs in a user based on form input, after validating the credentials.
+ * Handling the login process, after validating the credentials.
+ * 
  * @async
  * @returns {Promise<void>}
  */
@@ -185,12 +283,10 @@ async function login() {
   const formInput = getLoginFormInput();
   const user = findUserByEmail(formInput.email);
   const isValidLogin = await validateLogin(user, formInput.password);
-
   if (!isValidLogin) {
     document
       .getElementById("passwordContainer")
       .classList.add("wrong-password");
-
     showTopDown("Your email or password is wrong!");
     document.querySelector(".error-message").classList.remove("d-none");
     return;
@@ -234,68 +330,39 @@ async function validateLogin(user, password) {
   return user.password === hashPwd;
 }
 
+
+/**
+ * Creating a user object with the provided information and save it to the database.
+ *
+ * @async
+ * @param {*} username - The given username.
+ * @param {*} email - The user's email address.
+ * @param {*} hashedPassword - The user's hashed password. 
+ */
 async function createUserObject(username, email, hashedPassword) {
-  let userObj = {
+  const userObj = createUser(username, email, hashedPassword);
+  await setItem(email, JSON.stringify(userObj));
+}
+
+
+/**
+ * Creating a user object with default tasks, contacts and categories.
+ * @date 10/19/2023 - 11:20:47 AM
+ *
+ * @param {*} username - The user's username.
+ * @param {*} email - The user's email address.
+ * @param {*} hashedPassword - The user's hashed password. 
+ * @returns {Object} - The user's object with default values and provided user information.
+ */
+function createUser(username, email, hashedPassword) {
+  return {
     name: capitalizeFirstLetterOfEveryWord(username),
     email: email,
     password: hashedPassword,
-    tasks: [
-      {
-        titel: "HTML Template",
-        description: "Create basic HTML template to show tasks.",
-        status: "to do",
-        category: "Develop ",
-        categoryColor: "#ffea00",
-        assigned: [],
-        date: "2023-08-25",
-        prio: "medium",
-        subtasks: [
-          { title: "Create file", property: "unchecked" },
-          { title: "Add template function", property: "unchecked" },
-        ],
-        id: 0,
-      },
-      {
-        titel: "Publish App",
-        description: "Publish our App on the Web",
-        status: "in progress",
-        category: "Sales ",
-        categoryColor: "#FC71FF",
-        assigned: ["Laura Miller"],
-        date: "2023-09-09",
-        prio: "low",
-        subtasks: [],
-        id: 1,
-      },
-    ],
-    contacts: [
-      {
-        name: "Laura Miller",
-        email: "laura-miller@protonmail.com",
-        number: "0178654825",
-      },
-      {
-        name: "Peter Lustig",
-        email: "peter-lustig@gmail.com",
-        number: "0179554321",
-      },
-    ],
-    categorys: [
-      {
-        name: "Sales",
-        color: "#FC71FF",
-      },
-      {
-        name: "Backoffice",
-        color: "#38EAFF",
-      },
-      {
-        name: "Design",
-        color: "#FFC701",
-      },
-    ],
+    tasks: DEFAULT_TASKS,
+    contacts: DEFAULT_CONTACTS,
+    categorys: DEFAULT_CATEGORIES,
   };
-  await setItem(email, JSON.stringify(userObj));
 }
 
 /**
@@ -351,19 +418,20 @@ async function guestLogin() {
  */
 function sendPasswordMail(e) {
   e.preventDefault();
-  if (checkIfUserExists(document.getElementById("forgotPasswordInput").value)) {
+      
+  const emailInput = document.getElementById("forgotPasswordInput");
+  const userEmail = emailInput.value;
+
+  if (checkIfUserExists(userEmail)) {
     showTopDown("We send you an email!");
   } else {
     showTopDown("Please Sign Up! You're E-Mail Address was not found.");
   }
   showLogin();
 }
-document.getElementById("email").addEventListener("input", function () {
-  let container = this.parentElement;
 
-  if (this.validity.valid) {
-    container.style.borderColor = "rgba(0, 0, 0, 0.2)"; // oder Ihre Standardfarbe
-  } else {
-    container.style.borderColor = "red";
-  }
-});
+function updateBorderColor() {
+  const container = this.parentElement;
+  const borderColor = this.validity.valid ? "rgba(0, 0, 0, 0.2)" : "red";
+  container.style.borderColor = borderColor;
+}
