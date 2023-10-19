@@ -104,7 +104,6 @@ async function loadUserContacts() {
  */
 function renderContactList() {
   document.getElementById("contactsListContainer").innerHTML = "";
-
   sortInitialsGroup();
   renderInitials();
   generateCircleColor();
@@ -200,14 +199,11 @@ function groupInitials() {
   contacts.forEach((obj) => {
     let name = obj.name.trim();
     let initials = name.charAt(0);
-
     if (!initialsMap.has(initials)) {
       initialsMap.set(initials, []);
     }
-
     initialsMap.get(initials).push(obj);
   });
-
   return initialsMap;
 }
 
@@ -235,8 +231,7 @@ function sortContactsAlphabetically(sortedInitialsMap) {
     obj.sort((a, b) => {
       if (a.name < b.name) {
         return -1;
-      }
-      if (a.name > b.name) {
+      } else if (a.name > b.name) {
         return 1;
       }
       return 0;
@@ -280,13 +275,40 @@ function handleClickOnActiveCard() {
  * @param {Object} card
  */
 function openContact(card) {
+  setActiveCard(card);
+  updateContactsMain();
+  updateDialogElements(card);
+}
+
+
+/**
+ * Setting the active card in contact list.
+ *
+ * @param {*} card
+ */
+function setActiveCard(card) {
   handleClickOnActiveCard();
   deleteActiveClass();
-
   card.classList.add("single-contact-card-active");
+}
+
+
+/**
+ * Updating the contacts styling.
+ */
+function updateContactsMain() {
   contactsMain.classList.remove("contacts-none");
   contactsMain.classList.add("contacts-main");
   document.getElementById("buttonRespBack").classList.remove("d-none");
+}
+
+
+/**
+ * Updating the dialog elements with the informations from the selected card (param)
+ *
+ * @param {*} card - the card element that was selected.
+ */
+function updateDialogElements(card) {
   const cardId = card.getAttribute("id");
   dialogElements["fromCard"] = card;
   dialogElements["initials"] = card.querySelector(".circle").innerText;
@@ -395,8 +417,6 @@ function deleteInitial(name) {
   }
   renderContactList();
 }
-
-// Edit Contact
 
 /**
  * editing contact within edit-dialog-window
