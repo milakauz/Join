@@ -12,7 +12,7 @@ const createDialogElements = {
 
 
 /**
- * Opens the create contact dialog.
+ * Opening the dialog window for creating contact.
  */
 function openCreateContact() {
     createDialogElements.createDialog.classList.remove('resp-none');
@@ -21,7 +21,7 @@ function openCreateContact() {
 }
 
 /**
- * Cancels the create contact dialog.
+ * Closing the dialog window of creating contact.
  */
 function cancelCreateContact() {
     createDialogElements.createDialog.classList.add('resp-none');
@@ -30,7 +30,7 @@ function cancelCreateContact() {
 }
 
 /**
- * Adds a new contact to the user's contact list.
+ * Adding a new contact to the user's contact list.
  * @param {Event} e - The event object from the form submission.
  */
 function addNewContact(e) {
@@ -51,7 +51,7 @@ function addNewContact(e) {
 }
 
 /**
- * Capitalizes the first letter of every word in the input string.
+ * Capitalizing the first letter of every word in the input string.
  * @param {string} input - The input string to capitalize.
  * @returns {string} The input string with first letters of each word capitalized.
  */

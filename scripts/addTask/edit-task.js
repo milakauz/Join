@@ -1,23 +1,37 @@
 let taskToEdit;
 let editedTaskIndex;
+
+
+/**
+ *  * Extracting the 'index' parameter from the URL and uses it to retrieve the corresponding task from the user object.
+ * 
+ * @returns {Object|boolean} - The task object if the index is valid and exists in the user's tasks, otherwise false.
+ * @throws {Error} - If there is an error in parsing the URL or retrieving the index.
+ */
 function getIndexFromURL() {
   try {
     const params = new URLSearchParams(window.location.search);
     let data = params.get("index");
-
     if (data !== null && !isNaN(Number(data))) {
       let index = Number(data);
       editedTaskIndex = index;
       taskToEdit = userObj["tasks"][index];
       return taskToEdit;
     }
-
     return false;
   } catch (e) {
     return false;
   }
 }
 
+
+/**
+ * Checks if there is a task to edit based on the URL index. 
+ * If true: starting the event listener for editing a task and changing the input values to the task's values. 
+ * Otherwise: starting the event listener for adding a task.
+ *
+ * @returns {boolean}
+ */
 function checkIfEditTask() {
   let taskToEdit = getIndexFromURL();
   if (taskToEdit) {
@@ -29,6 +43,12 @@ function checkIfEditTask() {
   }
 }
 
+
+/**
+ * Updating the input fields, buttons, and other elements based on the task to be edited.
+ *
+ * @param {*} taskToEdit - The task object with values to populate the input fields.
+ */
 function changeInputs(taskToEdit) {
   let inputs = getInputs();
   inputs.title.value = taskToEdit.titel;
@@ -45,6 +65,12 @@ function changeInputs(taskToEdit) {
   loadAssignedContacts();
 }
 
+
+/**
+ * Retrieving the information of the input fields of edit task
+ *
+ * @returns {Object} - An object containing references of the input fields and elements.
+ */
 function getInputs() {
   let addTaskInputs = {
     title: document.getElementById("title-input"),
@@ -61,6 +87,12 @@ function getInputs() {
   return addTaskInputs;
 }
 
+
+/**
+ * Changing the priority of the task being edited.
+ *
+ * @param {Object} taskToEdit - The task object with the priority value to set.
+ */
 function changePriority(taskToEdit) {
   let priority = taskToEdit.prio;
   if (priority == "urgent") {
@@ -76,12 +108,25 @@ function changePriority(taskToEdit) {
   }
 }
 
+
+/**
+ * Returning a HTML string for the "Edit" submit button.
+ *
+ * @returns {string} - The HTML string.
+ */
 function changeSubmitBtn() {
   return `Edit <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
     <path d="M4.0166 12.1704L10.0166 18.1704L20.0166 6.17041" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
   </svg>`;
 }
 
+
+/**
+ * Saving the edited task in the user object and updating the data in local storage
+ *
+ * @async
+ * @returns {*}
+ */
 async function saveEditedTask() {
   let userMail = userObj.email;
   let inputs = getInputs();
@@ -96,6 +141,11 @@ async function saveEditedTask() {
   redirectToBoardAfterDelay();
 }
 
+
+/**
+ * Loading the subtasks from the task being edited into the global subtasks array. 
+ * And rendering the subtasks on the page.
+ */
 function loadSubtasks() {
   taskToEdit.subtasks.forEach((task) => {
     subtasks.push(task.title);
@@ -103,6 +153,11 @@ function loadSubtasks() {
   renderSubtasks();
 }
 
+
+/**
+ * Loading the assigned contacts from the task being edited into the global assigned array
+ * and updating the checkbox images for the assigned contacts.
+ */
 function loadAssignedContacts() {
   taskToEdit.assigned.forEach((contact) => {
     assigned.push(contact);
@@ -117,6 +172,12 @@ function loadAssignedContacts() {
   });
 }
 
+
+/**
+ * Gets the edited priority from the active priority button on the page.
+ *
+ * @returns {string} - The edited priority (low/medium/urgent).
+ */
 function getEditedPrio() {
   if (document.querySelector(".low-active")) {
     return "low";
@@ -129,6 +190,9 @@ function getEditedPrio() {
   }
 }
 
+/**
+ * Saving the edited contacts by updating the assigned contacts in the task being edited.
+ */
 function saveEditedContacts() {
   userObj.tasks[editedTaskIndex].assigned = [];
   document.querySelectorAll(".contact-item").forEach((item) => {
@@ -140,6 +204,10 @@ function saveEditedContacts() {
   });
 }
 
+
+/**
+ * Saving the edited subtasks by updating the subtasks in the task being edited.
+ */
 function saveEditedSubtasks() {
   userObj.tasks[editedTaskIndex].subtasks = [];
   document.querySelectorAll(".subtask-text").forEach((subtaskText) => {

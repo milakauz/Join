@@ -1,5 +1,5 @@
 /**
- * Displays the board button by removing the "display-none" class.
+ * Displaying the board button by removing the "display-none" class.
  */
 function showBoardButton() {
   const boardBtn = document.getElementById("board-btn-container");
@@ -7,33 +7,68 @@ function showBoardButton() {
 }
 
 /**
- * Toggles the display of the category menu.
- * Manages the visibility of the category menu and handles click events to hide the menu when clicking outside.
+ * Toggling the display and border styles of the category menu, 
+ * and adding event listeners for handling clicks outside of the menu and stopping event propagation.
  */
 function toggleCategoryMenu() {
   const category = document.getElementById("renderCategorys");
   const categoryContainer = document.getElementById("category-container");
   const input = document.querySelector(".category-input input");
-  category.classList.toggle("display-none");
-  category.classList.toggle("category-custom-border");
-  categoryContainer.classList.toggle("remove-border");
-  if (input === null) {
-    document.addEventListener("click", (event) => {
-      if (!categoryContainer.contains(event.target)) {
-        addNewCategory();
-        category.classList.add("display-none");
-        categoryContainer.classList.remove("remove-border");
-      }
-    });
-    category.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
+  toggleDisplayAndBorder(category, categoryContainer);
+ 
+  if (input) {
+    return
+  }
+
+  document.addEventListener('click', handleDocumentClick);
+  category.addEventListener('click', stopPropagation);
+}
+
+
+/**
+ * Handling click events on the document.
+ * If the clicked element is outside the category container, it adds a new categpry menu, 
+ * and removing its border.
+ *
+ * @param {*} event
+ */
+function handleDocumentClick(event) {
+  const categoryContainer = document.getElementById("category-container");
+  const category = document.getElementById("renderCategorys");
+  
+  if (!categoryContainer.contains(event.target)) {
+    addNewCategory();
+    category.classList.add("display-none");
+    categoryContainer.classList.remove("remove-border");
   }
 }
 
+
 /**
- * Selects a category and updates the category input field.
- * Updates the selected category in the input field, hides the category menu, and removes the border from the category container.
+ * Stopping the propagation of the given event.
+ *
+ * @param {*} event - The event object whose propagation will be stopped.
+ */
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+
+/**
+ * Toggling the display and border styles of the category and its containner.
+ *
+ * @param {*} category - The category element whose display and border styles will be toggled.
+ * @param {*} categoryContainer - The container of the category element whose border style will be toggled.
+ */
+function toggleDisplayAndBorder(category, categoryContainer) {
+  category.classList.toggle("display-none");
+  category.classList.toggle("category-custom-border");
+  categoryContainer.classList.toggle("remove-border");
+}
+
+/**
+ * Selecting a category and updates the category input field.
+ * Updating the selected category in the input field, hides the category menu, and removes the border from the category container.
  *
  * @param {number} i - Index of the selected category in the category list.
  */
@@ -48,8 +83,8 @@ function useCategory(i) {
 }
 
 /**
- * Toggles the display of the assigned contacts menu.
- * Manages the visibility of the assigned contacts menu and handles click events to hide the menu when clicking outside.
+ * Toggling the display of the assigned contacts menu.
+ * Managing the visibility of the assigned contacts menu and handles click events to hide the menu when clicking outside.
  */
 function toggleAssigndMenu() {
   const contacts = document.getElementById("contact-container");
@@ -71,7 +106,7 @@ function toggleAssigndMenu() {
 }
 
 /**
- * Hides the assigned-to dropdown and removes its border.
+ * Hiding the assigned-to dropdown and removes its border.
  */
 function hideAssignedToDropdown() {
   let assignedContainer = document.getElementById("contact-container");
@@ -81,8 +116,8 @@ function hideAssignedToDropdown() {
 }
 
 /**
- * Clears all input fields and resets priority, subtasks, and category.
- * Clears the values of input fields, resets priority selection, subtasks, and category selection.
+ * Clearing all input fields and resets priority, subtasks, and category.
+ * Clearing the values of input fields, resets priority selection, subtasks, and category selection.
  * Also updates the category input and button elements, and triggers rendering of categories and subtasks.
  */
 function clearAll() {
@@ -97,8 +132,8 @@ function clearAll() {
 }
 
 /**
- * Clears the selected category input and button content.
- * Resets the content of the category input and button elements to their basic state.
+ * Clearing the selected category input and button content.
+ * Reseting the content of the category input and button elements to their basic state.
  */
 function clearCategory() {
   const categoryInput = document.getElementById("category-input");
@@ -110,8 +145,8 @@ function clearCategory() {
 }
 
 /**
- * Clears the active state of priority buttons and resets priority images.
- * Removes the active class from priority buttons and updates the image sources for priority images.
+ * Clearing the active state of priority buttons and resets priority images.
+ * Removing the active class from priority buttons and updates the image sources for priority images.
  */
 function clearPriorityButtons() {
   const priorityButtons = ["urgentBtn", "mediumBtn", "lowBtn"];
@@ -132,8 +167,8 @@ function clearPriorityButtons() {
 }
 
 /**
- * Clears the values of specified input fields.
- * Sets the values of designated input fields to an empty string.
+ * Clearing the values of specified input fields.
+ * Setting the values of designated input fields to an empty string.
  */
 function clearInputFields() {
   const inputFields = ["title-input", "description-input", "task-date"];
@@ -141,8 +176,8 @@ function clearInputFields() {
 }
 
 /**
- * Switches a container and button to input elements.
- * Clears and replaces the content of a container and button based on their IDs.
+ * Switching a container and button to input elements.
+ * Clearing and replaces the content of a container and button based on their IDs.
  *
  * @param {string} containerId - The ID of the container element to switch to an input.
  * @param {string} buttonId - The ID of the button element associated with the container.
@@ -173,8 +208,8 @@ function changeToInput(containerId, buttonId) {
 }
 
 /**
- * Clears the value of an input element.
- * Clears the value of the input element associated with the given button element.
+ * Clearing the value of an input element.
+ * Clearing the value of the input element associated with the given button element.
  *
  * @param {HTMLElement} element - The button element triggering the input clearing.
  */
@@ -184,8 +219,8 @@ function clearInput(element) {
 }
 
 /**
- * Toggles the state of a subtask checkbox image between checked and unchecked.
- * Changes the image source and attribute of the checkbox based on its current state.
+ * Toggling the state of a subtask checkbox image between checked and unchecked.
+ * Changing the image source and attribute of the checkbox based on its current state.
  *
  * @param {number} i - The index of the subtask checkbox image.
  */
@@ -201,8 +236,8 @@ function changeSubtaskCheckbox(i) {
 }
 
 /**
- * Toggles the state of a checkbox image between checked and unchecked.
- * Changes the image source of the checkbox based on its current state.
+ * Toggling the state of a checkbox image between checked and unchecked.
+ * Changing the image source of the checkbox based on its current state.
  *
  * @param {number} i - The index of the checkbox image.
  */
