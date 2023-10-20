@@ -1553,7 +1553,8 @@ li {
     margin-top: 105px;
   }
 
-  .add-task-section form {
+  .add-task-section form,
+  #addTaskHeadline {
     margin-left: 300px;
   }
 
