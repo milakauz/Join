@@ -19,6 +19,12 @@ function templateForgotPassword() {
       `;
 }
 
+
+/**
+ * Generating HTML template for login page
+ *
+ * @returns {string} - The HTML string of the login template.
+ */
 function templateLogin() {
   return `
     <form onsubmit="login(); return false;" id="loginForm">
