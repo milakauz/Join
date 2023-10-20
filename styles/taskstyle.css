@@ -1347,14 +1347,15 @@ li {
 }
 
 @media only screen and (max-width: 1000px) and (min-width: 950px) {
-  .add-task-section form {
-    margin-left: 328px;
+  .add-task-section form,
+  #addTaskHeadline {
+    margin-left: 243px;
   }
 
-  #addTaskHeadline {
+  /* #addTaskHeadline {
     margin-left: 328px;
     position: relative;
-  }
+  } */
 
   .categorys,
   #render-categorys,
@@ -1442,8 +1443,9 @@ li {
     width: 230px;
   }
 
-  .add-task-section form {
-    margin-left: 328px;
+  .add-task-section form, 
+  #addTaskHeadline {
+    margin-left: 243px;
   }
 
   .categorys,
@@ -1493,7 +1495,7 @@ li {
     height: 47px;
     width: 100px;
     padding: 18px 10px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .form-btn {
