@@ -70,7 +70,8 @@
   outline: none;
 }
 
-.b-none {
+.b-none,
+div > input:focus {
   border: none;
 }
 
@@ -203,11 +204,6 @@ body {
   flex-direction: column;
   gap: 14px;
 }
-
-div > input:focus {
-  border: none;
-}
-
 
 .top-right {
   display: flex;
@@ -424,17 +420,10 @@ div > input:focus {
 .subtasks-container:focus-within {
   border: 1px solid #29abe2;
 }
-.category-button-container button {
-  background: white;
-  border: none;
-}
-
-.assigned-button-container button {
-  background: white;
-  border: none;
-}
-
-.subtasks-button-container button {
+.category-button-container button,
+.assigned-button-container button,
+.subtasks-button-container button,
+.generated-Btn-Container button {
   background: white;
   border: none;
 }
@@ -474,19 +463,12 @@ input[type="color"].circle-picker {
   /* To ensure no part of the default input is shown */
 }
 
-input[type="color"].circle-picker::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-input[type="color"].circle-picker::-webkit-color-swatch {
-  border: none;
-  border-radius: 50%;
-}
-
+input[type="color"].circle-picker::-webkit-color-swatch-wrapper,
 input[type="color"].circle-picker::-moz-color-swatch-wrapper {
   padding: 0;
 }
 
+input[type="color"].circle-picker::-webkit-color-swatch,
 input[type="color"].circle-picker::-moz-color-swatch {
   border: none;
   border-radius: 50%;
@@ -504,11 +486,6 @@ textarea:focus {
 
 #title-input:focus {
   border: 1px solid #29abe2;
-}
-
-.generated-Btn-Container button {
-  border: none;
-  background: white;
 }
 
 .generated-subtask-container {
@@ -600,14 +577,8 @@ ul {
   border-radius: 10px;
 }
 
-.hidden-input-container:focus {
-  outline: none;
-}
-
-.hidden-input input {
-  outline: none;
-}
-
+.hidden-input-container:focus,
+.hidden-input input,
 .hidden-input input:focus {
   outline: none;
 }
@@ -692,11 +663,7 @@ li {
   margin-right: 5px;
 }
 
-.cancel-btn {
-  margin: 0;
-  padding: 0;
-}
-
+.cancel-btn,
 .check-btn {
   margin: 0;
   padding: 0;
@@ -752,7 +719,9 @@ li {
     top: 120px !important;
   }
 
-  .seperator {
+  .seperator,
+  .clear-btn,
+  .create-btn-web {
     display: none;
   }
 
@@ -766,10 +735,7 @@ li {
     margin-top: 0px;
   }
 
-  .prio-label {
-    order: -1;
-  }
-
+  .prio-label,
   .prio-btn {
     order: -1;
   }
@@ -834,16 +800,8 @@ li {
     margin-right: 6px;
   }
 
-  .clear-btn {
-    display: none;
-  }
-
   #renderCategorys {
     max-height: 120px;
-  }
-
-  .create-btn-web {
-    display: none;
   }
 
   .create-btn-responsive {
@@ -1156,10 +1114,7 @@ li {
     margin-left: 0;
   }
 
-  .top-section {
-    flex-direction: column;
-  }
-
+  .top-section,
   .bottom-section {
     flex-direction: column;
   }
@@ -1168,14 +1123,13 @@ li {
     margin-top: 20px;
   }
 
-  .seperator {
+  .seperator,
+  .create-btn-web,
+  .clear-btn {
     display: none;
   }
 
-  .prio-btn {
-    order: -1;
-  }
-
+  .prio-btn,
   .prio-label {
     order: -1;
   }
@@ -1204,14 +1158,6 @@ li {
     margin-top: -3px;
   }
 
-  .create-btn-web {
-    display: none;
-  }
-
-  .clear-btn {
-    display: none;
-  }
-
   .create-btn-responsive {
     display: flex;
     position: absolute;
@@ -1233,7 +1179,9 @@ li {
     margin-left: -50px;
   }
 
-  .seperator {
+  .seperator,
+  .clear-btn,
+  .create-btn-responsive {
     display: none;
   }
 
@@ -1247,10 +1195,7 @@ li {
     margin-top: 0px;
   }
 
-  .prio-label {
-    order: -1;
-  }
-
+  .prio-label,
   .prio-btn {
     order: -1;
   }
@@ -1315,10 +1260,6 @@ li {
     margin-right: 6px;
   }
 
-  .clear-btn {
-    display: none;
-  }
-
   #renderCategorys {
     max-height: 150px;
   }
@@ -1330,11 +1271,6 @@ li {
   .clear-btn {
     display: flex;
   }
-
-  .create-btn-responsive {
-    display: none;
-  }
-
 
   #subtask-content {
     padding-bottom: 40px;
@@ -1351,11 +1287,6 @@ li {
   #addTaskHeadline {
     margin-left: 243px;
   }
-
-  /* #addTaskHeadline {
-    margin-left: 328px;
-    position: relative;
-  } */
 
   .categorys,
   #render-categorys,
@@ -1391,14 +1322,11 @@ li {
     margin-right: 25px;
   }
 
+  .category-li-item,
   .label {
     font-size: 16px;
   }
-
-  .category-li-item {
-    font-size: 16px;
-  }
-
+ 
   #generatedInput,
   #generatedSubtaskInput,
   .subtasks-input {

@@ -18,9 +18,10 @@ nav a {
   color: white;
 }
 
-.navChild > * {
+.navChild>* {
   user-select: none;
 }
+
 .sidebar {
   display: flex;
 }
@@ -57,6 +58,7 @@ header {
 .logoDiv img {
   transition: 125ms ease-out;
 }
+
 .logoDiv img:hover {
   transform: scale(1.1);
   transition: transform 125ms ease-in-out;
@@ -68,10 +70,6 @@ header {
 
 .logoDiv {
   padding-bottom: 100px;
-}
-
-.resp-logo {
-  display: none;
 }
 
 .top-right-wrapper {
@@ -107,15 +105,14 @@ header {
 }
 
 #hiddenSidebarMenu:hover {
-  background: linear-gradient(
-      0deg,
+  background: linear-gradient(0deg,
       rgba(12, 46, 98, 0.12) 0%,
-      rgba(12, 46, 98, 0.12) 100%
-    ),
+      rgba(12, 46, 98, 0.12) 100%),
     #fff;
   transition: 75ms ease-in-out;
 }
-.navChild > a {
+
+.navChild>a {
   display: flex;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -123,12 +120,12 @@ header {
   margin-bottom: 8px;
 }
 
-.navChild > a:hover {
+.navChild>a:hover {
   background-color: #2a3d59;
   cursor: pointer;
 }
 
-.navChild > a img {
+.navChild>a img {
   padding-right: 8px;
 }
 
@@ -169,7 +166,8 @@ header {
   height: 39px;
 }
 
-.display-none {
+.display-none,
+.resp-logo {
   display: none;
 }
 
@@ -184,6 +182,7 @@ header {
   padding: 10px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
+
 #hiddenDropdown-help,
 #hiddenDropdown-legal,
 #hiddenDropdown-privacy,
@@ -259,10 +258,6 @@ header {
     justify-content: flex-end;
   }
 
-  .header-text {
-    display: none;
-  }
-
   .resp-logo {
     display: block;
     position: absolute;
@@ -272,7 +267,10 @@ header {
     margin-left: 16px;
   }
 
-  .icon-question {
+  .icon-question,
+  .logoDiv,
+  .navBar-bottom,
+  .header-text {
     display: none;
   }
 
@@ -284,14 +282,6 @@ header {
   .navChild {
     display: flex;
     justify-content: space-around;
-  }
-
-  .logoDiv {
-    display: none;
-  }
-
-  .navBar-bottom {
-    display: none;
   }
 
   .padleft-3rem {
@@ -318,7 +308,8 @@ header {
     gap: 4px;
     flex-shrink: 0;
   }
-  .navChild > a:hover {
+
+  .navChild>a:hover {
     background-color: rgba(9, 25, 49, 255);
     cursor: pointer;
   }
@@ -343,10 +334,6 @@ header {
     height: 80px;
   }
 
-  .header-text {
-    display: none;
-  }
-
   .resp-logo {
     display: block;
     position: absolute;
@@ -355,7 +342,10 @@ header {
     height: 32px;
   }
 
-  .icon-question {
+  .icon-question,
+  .logoDiv,
+  .navBar-bottom,
+  .header-text {
     display: none;
   }
 
@@ -367,25 +357,11 @@ header {
   .navChild {
     display: flex;
   }
-
-  .logoDiv {
-    display: none;
-  }
-
-  .navBar-bottom {
-    display: none;
-  }
 }
 
 @media (min-width: 761px) {
-  #hiddenDropdown-help {
-    display: none;
-  }
-
-  #hiddenDropdown-legal {
-    display: none;
-  }
-
+  #hiddenDropdown-help,
+  #hiddenDropdown-legal,
   #hiddenDropdown-privacy {
     display: none;
   }
@@ -411,11 +387,11 @@ header {
     flex-shrink: 0;
   }
 
-  .navChild > a img {
+  .navChild>a img {
     padding-right: 0;
   }
 
-  .navChild > a {
+  .navChild>a {
     padding: 0;
     margin: 0;
   }
@@ -425,19 +401,23 @@ header {
   header {
     padding: 0;
   }
+
   .sidebar {
     overflow-x: hidden;
   }
+
   #hiddenSidebarMenu {
     margin-right: 20px;
     height: 45px;
     width: 45px;
     margin-top: 5px;
   }
+
   .link img {
     height: 20px;
     width: 20px;
   }
+
   .link-text {
     font-size: 14px;
   }
