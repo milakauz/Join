@@ -253,6 +253,7 @@ let startEventListener = () => {
     let clickedCard = card;
     card.addEventListener("click", () => openContact(clickedCard));
   });
+  document.getElementById('btnOptions').addEventListener('click', toggleOptionsBtn)
   dialogElements.deleteBtn.addEventListener("click", () => deleteContact());
   dialogElements.editBtn.addEventListener("click", () => editContact());
   editDialogElements.deleteBtn.addEventListener("click", () => deleteContact());
@@ -260,6 +261,10 @@ let startEventListener = () => {
     closeEditDialog()
   );
 };
+
+function toggleOptionsBtn() {
+  document.getElementById('btnOptions').classList.toggle('d-none');
+}
 
 /**
  * Removes the "single-contact-card-active" class from all elements that have it.
@@ -388,7 +393,7 @@ function changeDialogInfo(contact) {
     dialogElements.email.href = `mailto:${contact.email}`;
     dialogElements.phone.innerText = contact.number;
     dialogElements.phone.href = `tel:${contact.number}`;
-  } catch (e) {}
+  } catch (e) { }
 }
 
 /**
@@ -555,8 +560,10 @@ function showResponsiveOptions() {
  * Closes the responsive options by adding the "d-none" class to the element with the ID "responsiveOptionsContacts".
  */
 function closeResponsiveOptions() {
+  toggleOptionsBtn();
   document.getElementById("responsiveOptionsContacts").classList.add("d-none");
 }
+
 
 /**
  * Handles the window closing process by deactivating the active card, hiding the main contacts, and hiding the back button.
