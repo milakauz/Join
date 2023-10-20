@@ -246,7 +246,7 @@ function getEditAssignedContacts() {
 }
 
 /**
- * Toggles the visibility and styling of the assigned menu and handles outside click events.
+ * Toggling the visibility and styling of the assigned menu and handles outside click events.
  */
 function toggleEditAssignedMenu() {
   const contacts = document.getElementById("edit-contact-container");
@@ -280,7 +280,7 @@ function settingEvenListener(contacts, contactContainer, input) {
 }
 
 /**
- * Renders the edit subtasks by populating the HTML content with subtask data.
+ * Rendering the edit subtasks by populating the HTML content with subtask data.
  */
 function renderEditSubtasks() {
   let content = document.getElementById("subtask-content");
@@ -292,7 +292,8 @@ function renderEditSubtasks() {
 }
 
 /**
- * Copies subtasks from the given current task and returns a new array of subtasks.
+ * Copying subtasks from the given current task and returns a new array of subtasks.
+ * 
  * @param {Object} currentTask - The current task containing subtasks.
  * @returns {Array} An array of new subtasks copied from the current task.
  */
@@ -308,7 +309,7 @@ function pushSubtasks(currentTask) {
 }
 
 /**
- * Adds a new edited subtask to the list and renders the updated subtask content.
+ * Adding a new edited subtask to the list and renders the updated subtask content.
  */
 function addEditedSubtask() {
   let input = document.getElementById("generatedSubtaskInput").value;
@@ -323,7 +324,8 @@ function addEditedSubtask() {
 }
 
 /**
- * Deletes an edited subtask from the list and renders the updated subtask content.
+ * Deleting an edited subtask from the list and renders the updated subtask content. 
+ * 
  * @param {number} index - The index of the subtask to be deleted.
  */
 function deleteGeneratedEditSubtask(index) {
@@ -332,7 +334,7 @@ function deleteGeneratedEditSubtask(index) {
 }
 
 /**
- * Changes the subtask section to display an edit input field and button.
+ * Changing the subtask section to display an edit input field and button.
  * Focuses on the generated subtask input field if available.
  */
 function changeToEditInput() {
@@ -347,7 +349,7 @@ function changeToEditInput() {
 }
 
 /**
- * Changes the subtask section to display a basic edit subtask input and button.
+ * Changing the subtask section to display a basic edit subtask input and button.
  */
 function resetEditInput() {
   let input = document.getElementById("subtask-edit-input");

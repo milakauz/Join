@@ -315,6 +315,14 @@ function generateNewSubtaskHTML(i, subt) {
   </li>`;
 }
 
+
+/**
+ * Generating the HTML string fot the edit subtask input.
+ *
+ * @param {string} placeholder - The placeholder text for the input.
+ * @param {number} index - The index of the subtask in the list.
+ * @returns {string} - The HTML string for the edit subtask input.
+ */
 function generateEditSubtaskInput(placeholder, index) {
   return `
   <div class="d-flex">

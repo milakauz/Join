@@ -1,81 +1,161 @@
+/**
+ * Generating HTML for editing a task.
+ *
+ * @returns {string} The HTML string representing the edit task dialog.
+ */
 function generateEditTaskDialog() {
-  return /*html*/`
-  <div id="openEditModal" class="edit-modal-backdrop modal dNone">
-    <div class="edit-task-section">
-      <form onsubmit="saveEditTask(taskIndex); return false;" class="edit-task-form-board popUpBoardEditTask">
-      <div class="edit-task-section-wo-btn">
-        <img src="./img/close.svg" alt="Close Add Task Form" class="boardTaskClose"
-          onclick="closeEditModal(document.getElementById('openEditModal')); resetPrioButtons();">
-        <p id="edit-title-label" class="font20 label">Title</p>
-        <input id="editTitle" name="edit-title" type="text"
-          class="w-422 h-51 font20 pad-13-21 custom-border ol-none cursor-p">
-        <p id="edit-description-label" class="font20 label">Description</p>
-        <textarea id="editDescription" name="edit-description" type="text" cols="30" rows="10"
-          class="w-422 font20 pad-18-21 custom-border ol-none cursor-p"></textarea>
-        <p id="edit-date-label" class="font20 label">Due date</p>
-        <input id="editDate" name="edit-date" type="date"
-          class="w-422 h-51 font20 pad-18-21 custom-border ol-none cursor-p">
-        <p id="edit-priority-label" class="font20 label">Priority</p>
-        <div class="prio-btn prio-btn-edit">
-          <button id="edit-urgent-btn" onclick="getEditTaskPrio(this, 'urgent')"
-            class="font20 pad-18-10 urgent-btn custom-border shadow prioBtn" type="button">
-            Urgent
-            <img id="edit-urgent-img" src="./img/prio_urgent_color.png">
-          </button>
-          <button id="edit-medium-btn" onclick="getEditTaskPrio(this, 'medium')"
-            class="font20 pad-18-10 medium-btn custom-border shadow prioBtn" type="button">
-            Medium
-            <img id="edit-medium-img" src="./img/prio_medium_color.png">
-          </button>
-          <button id="edit-low-btn" onclick="getEditTaskPrio(this, 'low')"
-            class="font20 pad-18-10 low-btn custom-border shadow prioBtn" type="button">Low
-            <img id="edit-low-img" src="./img/prio_low_color.png">
-          </button>
-        </div>
-        <p id="edit-assigned-label" class="font20 label">Assigned To</p>
-        <div onclick="toggleEditAssignedMenu()" class="assigned-container font20 cursor-p" id="edit-assigned-container">
-          <div class="assigned-input" id="editAssignedInput">
-            <span>Select contacts to assign</span>
-          </div>
-          <div class="assigned-button-container" id="editAssignedBtn">
-            <button type="button"><img src="./img/arrow_down.png"></button>
-          </div>
-        </div>
-        <div class="edit-contacts font20 display-none" id="edit-contact-container">
-          <ul id="editRenderContacts">
-          </ul>
-        </div>
-        <div id="editContactContainerList" class="d-flex flex-row justify-start"> </div>
-
-        <p class="font20 label" id="edit-subtasks-label">Subtasks</p>
-        <div class="edit-subtasks-container font20 w-422 h-51 custom-border pad-18-21">
-          <div class="subtasks-input" id="subtask-edit-input">
-            <input onclick="changeToEditInput()" class="subtask-input  ol-none"
-              type="text" placeholder="Add new subtask">
-          </div>
-          <div class="subtasks-button-container" id="subtasks-edit-button">
-            <button onclick="changeToEditInput()" type="button"><img src="./img/plus_icon.png"></button>
-          </div>
-        </div>
-        <ul class="generated-Edit-Subtasks cursor-p font20" id="subtask-edit-content">
-        </ul>
-        </div>
-        <div class="edit-ok-btn">
-          <button id="editOkBtn" type="submit" class="display-none editTaskBoardBtn">
-            Ok
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-              <path d="M4.0166 12.1704L10.0166 18.1704L20.0166 6.17041" stroke="white" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
-        </div>
-      </form>
+  return /*html*/ `
+    <div id="openEditModal" class="edit-modal-backdrop modal dNone">
+      <div class="edit-task-section">
+        <form onsubmit="saveEditTask(taskIndex); return false;" class="edit-task-form-board popUpBoardEditTask">
+          ${generateCloseButton()}
+          ${generateInputSection('Title', 'edit-title-label', 'editTitle', 'text')}
+          ${generateInputSection('Description', 'edit-description-label', 'editDescription', 'textarea')}
+          ${generateInputSection('Due date', 'edit-date-label', 'editDate', 'date')}
+          ${generatePrioritySection()}
+          ${generateAssignedToSection()}
+          ${generateSubtasksSection()}
+          ${generateOkButton()}
+        </form>
+      </div>
     </div>
-</div>
   `;
 }
 
+/**
+ * Generating close button for the edit task dialog.
+ *
+ * @returns {string} The HTML string representing the close button.
+ */
+function generateCloseButton() {
+  return /*html*/ `
+    <img src="./img/close.svg" alt="Close Add Task Form" class="boardTaskClose"
+      onclick="closeEditModal(document.getElementById('openEditModal')); resetPrioButtons();">
+  `;
+}
+
+/**
+ * Generating  HTML input section with a label for a specific form field.
+ *
+ * @param {string} labelText - The text for the label.
+ * @param {string} labelId - The ID for the label element.
+ * @param {string} inputId - The ID for the input element.
+ * @param {string} inputType - The type of input element ('text', 'textarea', etc.).
+ * @returns {string} The HTML string representing the input section.
+ */
+function generateInputSection(labelText, labelId, inputId, inputType) {
+  return /*html*/ `
+    <p id="${labelId}" class="font20 label">${labelText}</p>
+    ${inputType === 'textarea' ? 
+      `<textarea id="${inputId}" name="${inputId}" cols="30" rows="10" class="w-422 font20 pad-18-21 custom-border ol-none cursor-p"></textarea>` :
+      `<input id="${inputId}" name="${inputId}" type="${inputType}" class="w-422 h-51 font20 pad-13-21 custom-border ol-none cursor-p">`
+    }
+  `;
+}
+
+/**
+ * Generating HTML section for selecting task priority during editing.
+ *
+ * @returns {string} The HTML string representing the priority selection section.
+ */
+function generatePrioritySection() {
+  return /*html*/ `
+    <p id="edit-priority-label" class="font20 label">Priority</p>
+    <div class="prio-btn prio-btn-edit">
+      ${generatePriorityButton('Urgent', 'edit-urgent-btn', 'urgent', 'prio_urgent_color')}
+      ${generatePriorityButton('Medium', 'edit-medium-btn', 'medium', 'prio_medium_color')}
+      ${generatePriorityButton('Low', 'edit-low-btn', 'low', 'prio_low_color')}
+    </div>
+  `;
+}
+
+/**
+ * Generating HTML button for selecting a task priority.
+ *
+ * @param {string} label - The label text for the button.
+ * @param {string} btnId - The ID for the button element.
+ * @param {string} onClickArg - The argument passed to the click event handler.
+ * @param {string} imgSrc - The source for an image within the button.
+ * @returns {string} The HTML string representing the priority selection button.
+ */
+function generatePriorityButton(label, btnId, onClickArg, imgSrc) {
+  return /*html*/ `
+    <button id="${btnId}" onclick="getEditTaskPrio(this, '${onClickArg}')"
+      class="font20 pad-18-10 ${onClickArg}-btn custom-border shadow prioBtn" type="button">
+      ${label}
+      <img id="${btnId}-img" src="./img/${imgSrc}.png">
+    </button>
+  `;
+}
+
+/**
+ * Generating an HTML section for assigning a task to contacts during editing.
+ *
+ * @returns {string} The HTML string representing the assigned to section.
+ */
+function generateAssignedToSection() {
+  return /*html*/ `
+    <p id="edit-assigned-label" class="font20 label">Assigned To</p>
+    <div onclick="toggleEditAssignedMenu()" class="assigned-container font20 cursor-p" id="edit-assigned-container">
+      <div class="assigned-input" id="editAssignedInput">
+        <span>Select contacts to assign</span>
+      </div>
+      <div class="assigned-button-container" id="editAssignedBtn">
+        <button type="button"><img src="./img/arrow_down.png"></button>
+      </div>
+    </div>
+    <div class="edit-contacts font20 display-none" id="edit-contact-container">
+      <ul id="editRenderContacts">
+      </ul>
+    </div>
+    <div id="editContactContainerList" class="d-flex flex-row justify-start"></div>
+  `;
+}
+
+/**
+ * Generating HTML section for managing subtasks during editing.
+ *
+ * @returns {string} The HTML string representing the subtasks section.
+ */
+function generateSubtasksSection() {
+  return /*html*/ `
+    <p class="font20 label" id="edit-subtasks-label">Subtasks</p>
+    <div class="edit-subtasks-container font20 w-422 h-51 custom-border pad-18-21">
+      <div class="subtasks-input" id="subtask-edit-input">
+        <input onclick="changeToEditInput()" class="subtask-input ol-none" type="text" placeholder="Add new subtask">
+      </div>
+      <div class="subtasks-button-container" id="subtasks-edit-button">
+        <button onclick="changeToEditInput()" type="button"><img src="./img/plus_icon.png"></button>
+      </div>
+    </div>
+    <ul class="generated-Edit-Subtasks cursor-p font20" id="subtask-edit-content"></ul>
+  `;
+}
+
+/**
+ * Generating HTML button for confirming changes during editing.
+ *
+ * @returns {string} The HTML string representing the OK button.
+ */
+function generateOkButton() {
+  return /*html*/ `
+    <div class="edit-ok-btn">
+      <button id="editOkBtn" type="submit" class="display-none editTaskBoardBtn">
+        Ok
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+          <path d="M4.0166 12.1704L10.0166 18.1704L20.0166 6.17041" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  `;
+}
+
+
+/**
+ * Generating an HTML input element for adding a new subtask during editing.
+ *
+ * @returns {string} - The HTML string of the input.
+ */
 function generateBasicEditSubtaskInputHTML() {
   return `
     <input onclick="changeToEditInput()" class="subtask-input  ol-none" type="text" placeholder="Add new subtask">
@@ -83,6 +163,11 @@ function generateBasicEditSubtaskInputHTML() {
 }
 
 
+/**
+ * Generating an HTML button for adding a new subtask during editing.
+ *
+ * @returns {string} - The HTML string of the button.
+ */
 function generateBasicEditSubtaskButtonHTML() {
   return `          
     <button onclick="changeToEditInput()" type="button"><img src="./img/plus_icon.png"></button>
@@ -90,6 +175,11 @@ function generateBasicEditSubtaskButtonHTML() {
 }
 
 
+/**
+ * Generating an HTML input element for editing a subtask.
+ *
+ * @returns {string} - The HTML string of the input element.
+ */
 function generateEditInputHTML() {
   return `
         <div>
@@ -99,6 +189,11 @@ function generateEditInputHTML() {
 }
 
 
+/**
+ * Generates an HTML button container with cancel and save buttons for editing a subtask.
+ *
+ * @returns {string} - The HTML string representing the button container.
+ */
 function generateEditButtonHTML() {
   return `
     <div class="generated-Btn-Container">
@@ -111,6 +206,13 @@ function generateEditButtonHTML() {
 }
 
 
+/**
+ * Generating HTML list item for editing a subtask.
+ *
+ * @param {number} i - The index of the subtask.
+ * @param {string} subtask - The text of the subtask.
+ * @returns {string} The HTML string representing the subtask list item.
+ */
 function generateEditSubtaskHTML(i, subtask) {
   return `
     <li id="listItem${i}">
@@ -148,6 +250,11 @@ function generateEditSubtaskHTML(i, subtask) {
 }
 
 
+/**
+ * Generating HTML section for editing user assignments.
+ *
+ * @returns {string} - The HTML string of the user assignment section.
+ */
 function generateEditUserAssignedHTML() {
   return `
     <div class="contact-item-container" onclick="changeEditCheckbox(0)">
@@ -156,6 +263,14 @@ function generateEditUserAssignedHTML() {
     `;
 }
 
+
+/**
+ * Generating HTML section for rendering edit contacts.
+ *
+ * @param {Object} contact - The contact information.
+ * @param {number} i - The index of the contact.
+ * @returns {string} - The HTML string of the rendered contact section.
+ */
 function renderEditContactsHTML(contact, i) {
   return `
         <div class="contact-item-container" onclick="changeEditCheckbox(${i + 1})">
@@ -167,7 +282,11 @@ function renderEditContactsHTML(contact, i) {
         `;
 }
 
-
+/**
+ * Generating HTML button for adding a new contact during editing.
+ *
+ * @returns {string} - The HTML string of the button for adding a new contact.
+ */
 function generateAddNewEditContact() {
   return `
     <div class="d-flex justify-content-center custom-contact-button-task">
@@ -179,6 +298,14 @@ function generateAddNewEditContact() {
     `;
 }
 
+
+/**
+ * Generating HTML input field for editing a subtask.
+ *
+ * @param {string} placeholder - The placeholder text for the input field.
+ * @param {number} index - The index of the subtask.
+ * @returns {string} - The HTML string of the input field for editing subtask.
+ */
 function generateEditSubtaskEditInput(placeholder, index) {
   return `
   <div class="d-flex">

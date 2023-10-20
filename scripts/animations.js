@@ -91,9 +91,7 @@ function showLoadingScreen() {
   spinnerInner.style.width = "120px";
   spinnerInner.style.height = "120px";
   spinnerInner.style.animation = "spin 2s linear infinite";
-
   spinnerContainer.appendChild(spinnerInner);
-
   document.body.insertBefore(spinnerContainer, document.body.firstChild);
 }
 

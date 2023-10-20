@@ -1,5 +1,6 @@
 /**
- * Generates an HTML container for displaying contact initials and an image.
+ * Generating an HTML container for displaying contact initials and an image.
+ * 
  * @param {string} key - The initial letter for the contacts.
  * @returns {string} The generated HTML container.
  */
@@ -18,7 +19,8 @@ function generateInitialsContainer(key) {
 }
 
 /**
- * Generates an HTML card for displaying contact information.
+ * Generating an HTML card for displaying contact information.
+ * 
  * @param {Object} contact - The contact information.
  * @param {number} index - The index of the contact.
  * @returns {string} The generated HTML card.
