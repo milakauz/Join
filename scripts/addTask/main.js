@@ -235,7 +235,7 @@ function checkIfCategoryInputExists() {
 }
 
 /**
- * Adds a new category to the list of categories.
+ * Adding a new category to the list of categories.
  * Validates input and color, updates UI, and displays error messages if needed.
  *
  * @returns {boolean} Returns false if an error occurs during execution.
@@ -260,8 +260,8 @@ function addNewCategory() {
       category.innerHTML = generateBasicCategoryInputHTML();
       categoryBtn.innerHTML = generateBasicCategoryButtonHTML();
       category.innerHTML = generateSelectedCategoryHTML(
-        categorys,
-        categorys.length - 1
+        userObj.categorys,
+        userObj.categorys.length - 1
       );
     }
   } catch (error) {
