@@ -26,7 +26,18 @@ function resetPrioButtons() {
   const images = {};
   const buttons = {};
   priorities.forEach((priority) => {
-    checkPriority(priority);
+    if (priority == "urgent") {
+      images[priority] = document.getElementById(`urgentImg`);
+      buttons[priority] = document.getElementById(`urgentBtn`);
+    }
+    if (priority == "medium") {
+      images[priority] = document.getElementById(`mediumImg`);
+      buttons[priority] = document.getElementById(`mediumBtn`);
+    }
+    if (priority == "low") {
+      images[priority] = document.getElementById(`lowImg`);
+      buttons[priority] = document.getElementById(`lowBtn`);
+    }
     images[priority].src = `./img/prio_${priority}_color.png`;
     buttons[priority].classList.remove(`${priority}-active`);
   });
@@ -38,14 +49,16 @@ function resetPrioButtons() {
  * 
  * @param {*} priority
  */
-function checkPriority(priority){
+function checkPriority(priority) {
   if (priority == "urgent") {
     images[priority] = document.getElementById(`urgentImg`);
     buttons[priority] = document.getElementById(`urgentBtn`);
-  } else if (priority == "medium") {
+  }
+  if (priority == "medium") {
     images[priority] = document.getElementById(`mediumImg`);
     buttons[priority] = document.getElementById(`mediumBtn`);
-  } else if (priority == "low") {
+  }
+  if (priority == "low") {
     images[priority] = document.getElementById(`lowImg`);
     buttons[priority] = document.getElementById(`lowBtn`);
   }
@@ -99,9 +112,9 @@ function settingTaskValues() {
  * @param {*} id
  * @returns {{ titel: t; description: de; status: ans; category: c; categoryColor: cC; assigned: {}; date: d; prio: p; subtasks: {}; id: id; }}
  */
-function settingNewTask(t, de, s, c, cC, d, p, id){
+function settingNewTask(t, de, s, c, cC, d, p, id) {
   let newTask = {
-    titel: t.value, 
+    titel: t.value,
     description: de.value,
     status: s,
     category: c,
@@ -147,26 +160,6 @@ function getEditTaskPrio(button, priority) {
   button.classList.add(priority + "-active");
   images[priority].src = `./img/prio_${priority}.png`;
   currentPrio = priority;
-}
-
-
-/**
- * Checking the priority of buttons to set the correct colors/images.
- *
- * @param {*} buttons
- */
-function checkBtnPriority(buttons) {
-  buttons.forEach(function (btn) {
-    if (btn.classList.contains(priority + "-active")) {
-      btn.classList.remove(priority + "-active");
-      currentPrio;
-    } else if (btn !== button) {
-      btn.classList.remove("low-active", "medium-active", "urgent-active");
-      images.low.src = "./img/prio_low_color.png";
-      images.medium.src = "./img/prio_medium_color.png";
-      images.urgent.src = "./img/prio_urgent_color.png";
-    }
-  });
 }
 
 /**
