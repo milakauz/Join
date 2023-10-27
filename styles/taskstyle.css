@@ -551,7 +551,23 @@ ul {
 .generatedSubtasks {
   max-height: 139px;
   overflow-y: auto;
-  scrollbar-width: none;
+}
+
+.generatedSubtasks::-webkit-scrollbar {
+  width: 10px;
+  color: #d1d1d1;
+}
+
+.generatedSubtasks::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.generatedSubtasks::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.generatedSubtasks::-webkit-scrollbar-thumb:hover{
+  background: rgb(42,54,71); 
 }
 
 .category-dropdown-items {

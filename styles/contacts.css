@@ -151,6 +151,11 @@
   gap: 3em;
 }
 
+#dialog__createDeleteBtn,
+#dialog__createSaveBtn {
+  width: 250px;
+}
+
 .custom-btn-white {
   display: flex;
   padding: 15px 15px;
@@ -519,7 +524,7 @@
     height: 90% !important;
   }
 
-  .dialog__createRightImg img, 
+  .dialog__createRightImg img,
   .dialog__editRightImg img {
     height: 80px !important;
     width: 80px !important;
@@ -530,7 +535,7 @@
     width: unset;
   }
 
-  .btn-resp-add{
+  .btn-resp-add {
     height: 60px !important;
     width: 60px !important;
   }
@@ -603,6 +608,13 @@
 }
 
 @media only screen and (min-width: 300px) and (max-width: 419px) {
+
+  .dialog__editInput,
+  .dialog__createInput {
+    padding: 13px 4px;
+
+  }
+
   #contactsMain {
     padding-top: 32px;
   }
@@ -638,7 +650,8 @@
 @media only screen and (max-width: 1000px) and (min-width: 760px) {
   #createContactForm {
     gap: 1.5em;
-    margin-top: 30px;
+    margin-top: 32px;
+    margin-bottom: 32px;
   }
 
   .dialog__createRightImg {
@@ -655,8 +668,8 @@
     margin: 12px 0px 0px 0px;
   }
 
-  
-  .dialog__createRightImg img, 
+
+  .dialog__createRightImg img,
   .dialog__editRightImg img {
     height: 80px !important;
     width: 80px !important;
@@ -1055,7 +1068,7 @@
   .dialog__createRightImg {
     position: absolute;
     width: 70px;
-    top: calc(-30px - 50%);
+    top: calc(15px - 50%);
   }
 
   .dialog__editRightForm,
