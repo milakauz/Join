@@ -174,7 +174,7 @@ function renderContactsInContainer(initials, contacts) {
   }
 }
 /**
- * generating color of circle in ContactList according to initial of surname
+ * Generating color of circle in ContactList according to initial of surname
  *
  * @function
  */
