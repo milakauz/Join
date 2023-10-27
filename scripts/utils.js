@@ -151,6 +151,9 @@ let MemberColors = {
   X: "rgba(166, 115, 115, 1)", // Dark Salmon
   Y: "rgba(166, 140, 104, 1)", // Light Brown
   Z: "rgba(166, 115, 115, 1)", // Dark Salmon
+  Ä:  "rgba(139, 69, 19, 1)", // Saddle Brown
+  Ö: " rgba(255, 140, 0, 1)", // Dark Orange
+  Ü: " rgba(34, 139, 34, 1)" // Forest Green
 };
 
 /**
