@@ -15,6 +15,7 @@ const createDialogElements = {
  * Opening the dialog window for creating contact.
  */
 function openCreateContact() {
+    window.scrollTo(0, 0);
     createDialogElements.createDialog.classList.remove('resp-none');
     createDialogElements.createDialog.classList.add('show-edit-dialog');
     dialogBackground.classList.remove('d-none');
