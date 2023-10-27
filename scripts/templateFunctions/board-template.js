@@ -246,11 +246,11 @@ function htmlTemplatePopUpTask(i, priority) {
               <div class="pe-3 bold">Priority:</div>
               <div>${priority}</div>
           </div>
-          <div>
+          <div class="w-100">
               <div class="pb-3 bold">Assigned to:</div>
               <div id="boardTasksMembers" class="d-flex flex-column"></div>
           </div>
-          <div id="boardTasksSubtasks"></div>
+          <div id="boardTasksSubtasks" class="w-100"></div>
       </div>`;
 }
 
