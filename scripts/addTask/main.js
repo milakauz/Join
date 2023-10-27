@@ -245,28 +245,62 @@ function addNewCategory() {
     const categoryVar = getCategoryVaraible();
     const { input, color, hiddenError, category, categoryBtn } = categoryVar;
     if (!input || !color) {
-      hiddenError.innerText =
-        !input && !color
-          ? "Oops.. something went wrong"
-          : !input
-          ? "You need to type a new category"
-          : "You need to pick a color";
-      hiddenError.classList.remove("display-none");
+      generatingErrorText(hiddenError, input, color)
     } else {
-      hiddenError.innerText = "";
-      hiddenError.classList.add("display-none");
+      deactivatingError(hiddenError);
       userObj.categorys.push({ name: input, color });
       renderCategorys();
-      category.innerHTML = generateBasicCategoryInputHTML();
-      categoryBtn.innerHTML = generateBasicCategoryButtonHTML();
-      category.innerHTML = generateSelectedCategoryHTML(
-        userObj.categorys,
-        userObj.categorys.length - 1
-      );
+      generatingCategoryHTML(category, categoryBtn);
     }
   } catch (error) {
     return false;
   }
+}
+
+
+/**
+ * Disabling HTML Element of error message.
+ *
+ * @param {*} hE - DOM Element
+ */
+function deactivatingError(hE) {
+  hE.innerText = "";
+  hE.classList.add("display-none");
+}
+
+
+/**
+ * Description placeholder
+ * @date 10/27/2023 - 12:08:55 PM
+ *
+ * @param {Element} hE - DOM Element of error message
+ * @param {*} input - Content of input field.
+ * @param {*} color - Colorcode of selected Color.
+ */
+function generatingErrorText(hE, input, color) {
+  hE.innerText =
+    !input && !color
+      ? "Oops.. something went wrong"
+      : !input
+        ? "You need to type a new category"
+        : "You need to pick a color";
+  hE.classList.remove("display-none");
+}
+
+
+/**
+ * Generating HTML code for category element and adjusting the innerHTML of `category` and `categoryBtn`.
+ *
+ * @param {Element} category - Inputfield of category.
+ * @param {Element} categoryBtn - Button of category.
+ */
+function generatingCategoryHTML(category, categoryBtn) {
+  category.innerHTML = generateBasicCategoryInputHTML();
+  categoryBtn.innerHTML = generateBasicCategoryButtonHTML();
+  category.innerHTML = generateSelectedCategoryHTML(
+    userObj.categorys,
+    userObj.categorys.length - 1
+  );
 }
 
 /**
