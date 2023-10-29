@@ -418,3 +418,27 @@ function generateTemplateSubtasks(st, j) {
         </div>
     </li>`;
 }
+
+/**
+ * Generates the HTML template for a task based on its status.
+ *
+ * @param {Object} task - The task object.
+ * @param {number} index - The index of the task.
+ * @param {string} priority - The priority of the task.
+ * @param {string} status - The status of the task.
+ * @returns {string} - Returns the HTML string for the task based on its status.
+ */
+function htmlTemplateByStatus(task, index, priority, status) {
+  switch (status) {
+    case "to do":
+      return htmlTemplateToDo(task, index, priority);
+    case "in progress":
+      return htmlTemplateInProgress(task, index, priority);
+    case "awaiting feedback":
+      return htmlTemplateAwaitingFeedback(task, index, priority);
+    case "done":
+      return htmlTemplateDone(task, index, priority);
+    default:
+      return "";
+  }
+}
