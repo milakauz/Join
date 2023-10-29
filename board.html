@@ -155,8 +155,9 @@
                   d="M12.0174 12.1705L17.2604 17.4135M6.77441 17.4135L12.0174 12.1705L6.77441 17.4135ZM17.2604 6.92749L12.0164 12.1705L17.2604 6.92749ZM12.0164 12.1705L6.77441 6.92749L12.0164 12.1705Z"
                   stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg></button>
-            <button id="submit-btn-web" type="submit" id="create-btn" class="font20 pad-18-15 create-btn create-btn-web">Create Task <svg
-                xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <button id="submit-btn-web" type="submit" id="create-btn"
+              class="font20 pad-18-15 create-btn create-btn-web">Create Task <svg xmlns="http://www.w3.org/2000/svg"
+                width="25" height="25" viewBox="0 0 25 25" fill="none">
                 <path d="M4.0166 12.1704L10.0166 18.1704L20.0166 6.17041" stroke="white" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" />
               </svg>
@@ -170,7 +171,7 @@
   <!-- <div w3-include-html="./templates/editModal.html"></div> -->
   <div id="templateEditTask">
   </div>
-  
+
 
   <div id="popUpBoard" class="dNone popUpBoardBackground display-flex justify-content-center align-items-center"></div>
   <div class="parentDiv">
@@ -182,7 +183,8 @@
       </div>
 
       <div class="d-flex align-items-center boardSearchBox paddingRight50Px">
-        <div class=" searchTaskContainer border ps-3 py-1 findTaskBtn d-flex justify-content-between align-items-center">
+        <div
+          class=" searchTaskContainer border ps-3 py-1 findTaskBtn d-flex justify-content-between align-items-center">
           <input onkeyup="searchTask()" id="boardInput" data-search placeholder="Find task"
             class="inputfindTask border-end" type="text" />
           <div class="d-flex justify-content-center align-items-center px-3 cursorPointer">
@@ -201,10 +203,11 @@
         <div class="d-flex justify-content-between">
           <div class="boardCategoryHeadline bold">To do</div>
           <div class="cursorPointer">
-            <svg class="plusButton" onclick="addTaskByStatus('to do')" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
+            <svg class="plusButton" onclick="addTaskByStatus('to do')" width="24" height="25" viewBox="0 0 24 25"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
             </svg>
           </div>
         </div>
@@ -215,10 +218,11 @@
         <div class="d-flex justify-content-between">
           <div class="bold boardCategoryHeadline" id="inProgressText">In Progress</div>
           <div class="cursorPointer">
-            <svg class="plusButton" onclick="addTaskByStatus('in progress')" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
+            <svg class="plusButton" onclick="addTaskByStatus('in progress')" width="24" height="25" viewBox="0 0 24 25"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
             </svg>
           </div>
         </div>
@@ -229,10 +233,11 @@
         <div class="d-flex justify-content-between">
           <div class="bold boardCategoryHeadline" id="awaitingFeedbackText">Awaiting Feedback</div>
           <div class="cursorPointer">
-            <svg class="plusButton" onclick="addTaskByStatus('awaiting feedback')" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
+            <svg class="plusButton" onclick="addTaskByStatus('awaiting feedback')" width="24" height="25"
+              viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5757L8 12.5757" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
             </svg>
           </div>
         </div>
