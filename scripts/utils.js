@@ -172,3 +172,82 @@ function handleKeyPress(event, f1, f2) {
     event.target.value = "";
   }
 }
+
+/**
+ * Renders tasks based on the search term and their status.
+ *
+ * @param {string} search - The search term to filter tasks by.
+ * @param {string} status - The status of the tasks to be rendered.
+ * @param {string} containerId - The ID of the container where the tasks should be rendered.
+ * @param {string} assignmentIdPrefix - The prefix of the ID for the assignment container.
+ */
+function renderSearchTasksByStatus(search, status, containerId, assignmentIdPrefix) {
+  const filteredTasks = userObj.tasks.filter((t) => t["status"] === status);
+  document.getElementById(containerId).innerHTML = "";
+  for (let i = 0; i < filteredTasks.length; i++) {
+    let title = filteredTasks[i].titel;
+    let description = filteredTasks[i].description;
+    if (
+      title.toLowerCase().includes(search) ||
+      description.toLowerCase().includes(search)
+    ) {
+      const element = filteredTasks[i];
+      document.getElementById(containerId).innerHTML += htmlTemplateByStatus(
+        element,
+        i,
+        getPriority(element),
+        status
+      );
+      let idAssigned = document.getElementById(`${assignmentIdPrefix}${i}`);
+      idAssigned.innerHTML = element["assigned"]
+        .map((_, j) => htmlTemplateAssignment(element, j))
+        .join("");
+    }
+  }
+}
+
+/**
+ * Initiates the task search based on the input from the "boardInput" element and renders
+ * the search results.
+ */
+function searchTask() {
+  let search = document.getElementById("boardInput").value;
+  search = search.toLowerCase();
+  renderSearchTasksByStatus(search, "to do", "todo", "assignedToDo");
+  renderSearchTasksByStatus(
+    search,
+    "in progress",
+    "inProgress",
+    "assignedInProgress"
+  );
+  renderSearchTasksByStatus(
+    search,
+    "awaiting feedback",
+    "awaitingFeedback",
+    "assignedAwaitingFeedback"
+  );
+  renderSearchTasksByStatus(search, "done", "done", "assignedDone");
+  checkIfDropAreaEmpty();
+}
+
+/**
+ * Changes the visual representation of a subtask to a checkbox and updates the userObj.
+ *
+ * @async
+ * @param {number} k - The index of the subtask.
+ * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+ */
+async function changeToCheckbox(k) {
+  const checkbox = document.getElementById(`subtask-checkbox${k}`);
+  const index = userObj.tasks.findIndex(
+    (task) => task.status === currentStatus && task.titel === currentTitel
+  );
+  if (checkbox.getAttribute("src") === "./img/checkbox.png") {
+    checkbox.src = "./img/checkbox_checked.png";
+    toggleSubtaskProperty(checkbox, "checked", index);
+  } else if (checkbox.getAttribute("src") === "./img/checkbox_checked.png") {
+    checkbox.src = "./img/checkbox.png";
+    toggleSubtaskProperty(checkbox, "unchecked", index);
+  }
+  await setItem(userObj.email, JSON.stringify(userObj));
+}
