@@ -412,28 +412,6 @@ function boardClosePopUpTask() {
 }
 
 /**
- * Changes the visual representation of a subtask to a checkbox and updates the userObj.
- *
- * @async
- * @param {number} k - The index of the subtask.
- * @returns {Promise<void>} - A promise that resolves when the operation is complete.
- */
-async function changeToCheckbox(k) {
-  const checkbox = document.getElementById(`subtask-checkbox${k}`);
-  const index = userObj.tasks.findIndex(
-    (task) => task.status === currentStatus && task.titel === currentTitel
-  );
-  if (checkbox.getAttribute("src") === "./img/checkbox.png") {
-    checkbox.src = "./img/checkbox_checked.png";
-    toggleSubtaskProperty(checkbox, "checked", index);
-  } else if (checkbox.getAttribute("src") === "./img/checkbox_checked.png") {
-    checkbox.src = "./img/checkbox.png";
-    toggleSubtaskProperty(checkbox, "unchecked", index);
-  }
-  await setItem(userObj.email, JSON.stringify(userObj));
-}
-
-/**
  * Toggles the property of a subtask between "checked" and "unchecked".
  *
  * @param {HTMLElement} checkbox - The checkbox element.
@@ -486,6 +464,7 @@ function checkingCheckbox(properties, images) {
     }
   }
 }
+
 /**
  * Generates the HTML header for subtasks.
  *
@@ -531,87 +510,6 @@ function getThePriority(element) {
     priority = '<img class="height35Px" src="./img/lowPriority.png">';
   }
   return priority;
-}
-
-/**
- * Initiates the task search based on the input from the "boardInput" element and renders
- * the search results.
- */
-function searchTask() {
-  let search = document.getElementById("boardInput").value;
-  search = search.toLowerCase();
-  renderSearchTasksByStatus(search, "to do", "todo", "assignedToDo");
-  renderSearchTasksByStatus(
-    search,
-    "in progress",
-    "inProgress",
-    "assignedInProgress"
-  );
-  renderSearchTasksByStatus(
-    search,
-    "awaiting feedback",
-    "awaitingFeedback",
-    "assignedAwaitingFeedback"
-  );
-  renderSearchTasksByStatus(search, "done", "done", "assignedDone");
-  checkIfDropAreaEmpty();
-}
-
-/**
- * Renders tasks based on the search term and their status.
- *
- * @param {string} search - The search term to filter tasks by.
- * @param {string} status - The status of the tasks to be rendered.
- * @param {string} containerId - The ID of the container where the tasks should be rendered.
- * @param {string} assignmentIdPrefix - The prefix of the ID for the assignment container.
- */
-function renderSearchTasksByStatus(search, status, containerId, assignmentIdPrefix) {
-  const filteredTasks = userObj.tasks.filter((t) => t["status"] === status);
-  document.getElementById(containerId).innerHTML = "";
-  for (let i = 0; i < filteredTasks.length; i++) {
-    let title = filteredTasks[i].titel;
-    let description = filteredTasks[i].description;
-    if (
-      title.toLowerCase().includes(search) ||
-      description.toLowerCase().includes(search)
-    ) {
-      const element = filteredTasks[i];
-      document.getElementById(containerId).innerHTML += htmlTemplateByStatus(
-        element,
-        i,
-        getPriority(element),
-        status
-      );
-      let idAssigned = document.getElementById(`${assignmentIdPrefix}${i}`);
-      idAssigned.innerHTML = element["assigned"]
-        .map((_, j) => htmlTemplateAssignment(element, j))
-        .join("");
-    }
-  }
-}
-
-/**
- * Generates the HTML template for a task based on its status.
- *
- * @param {Object} task - The task object.
- * @param {number} index - The index of the task.
- * @param {string} priority - The priority of the task.
- * @param {string} status - The status of the task.
- * @returns {string} - Returns the HTML string for the task based on its status.
- */
-function htmlTemplateByStatus(task, index, priority, status) {
-  switch (status) {
-    case "to do":
-      return htmlTemplateToDo(task, index, priority);
-    case "in progress":
-      return htmlTemplateInProgress(task, index, priority);
-    case "awaiting feedback":
-      return htmlTemplateAwaitingFeedback(task, index, priority);
-    case "done":
-      return htmlTemplateDone(task, index, priority);
-    default:
-      return "";
-  }
 }
 
 /**
