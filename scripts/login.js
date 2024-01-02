@@ -7,7 +7,7 @@ const DEFAULT_TASKS = [
     category: "Develop ",
     categoryColor: "#ffea00",
     assigned: [],
-    date: "2023-08-25",
+    date: "2024-08-25",
     prio: "medium",
     subtasks: [
       { title: "Create file", property: "unchecked" },
@@ -22,7 +22,7 @@ const DEFAULT_TASKS = [
     category: "Sales ",
     categoryColor: "#FC71FF",
     assigned: ["Laura Miller"],
-    date: "2023-09-09",
+    date: "2024-09-09",
     prio: "low",
     subtasks: [],
     id: 1,
