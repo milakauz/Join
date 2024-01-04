@@ -18,7 +18,7 @@ const DEFAULT_TASKS = [
   {
     titel: "Publish App",
     description: "Publish our App on the Web",
-    status: "in progress",
+    status: "to do",
     category: "Sales ",
     categoryColor: "#FC71FF",
     assigned: ["Laura Miller"],
@@ -27,6 +27,39 @@ const DEFAULT_TASKS = [
     subtasks: [],
     id: 1,
   },
+  {
+    titel: "Implement User Authentication",
+    description: "Develop and integrate a secure user authentication system, including login, registration, and password reset functionalities.",
+    status: "in progress",
+    category: "Development",
+    categoryColor: "#4CAF50",
+    assigned: ["Alex Johnson", "Samantha Lee"],
+    date: "2024-10-15",
+    prio: "urgent",
+    subtasks: [
+      {
+        title: "Design authentication flow",
+        status: "not started"
+      },
+      {
+        title: "Set up database for user information",
+        status: "not started"
+      },
+      {
+        title: "Implement login functionality",
+        status: "not started"
+      },
+      {
+        title: "Implement registration functionality",
+        status: "not started"
+      },
+      {
+        title: "Implement password reset functionality",
+        status: "not started"
+      }
+    ],
+    id: 2
+  }  
 ];
 
 const DEFAULT_CONTACTS = [
@@ -40,6 +73,51 @@ const DEFAULT_CONTACTS = [
     email: "peter-lustig@gmail.com",
     number: "0179554321",
   },
+  {
+    name: "Ana Torres",
+    email: "ana-torres@example.com",
+    number: "+34 612 345 678"
+  },
+  {
+    name: "Raj Patel",
+    email: "raj-patel@example.com",
+    number: "+91 987 654 3210"
+  },
+  {
+    name: "Chen Wei",
+    email: "chen-wei@example.com",
+    number: "+86 131 2345 6789"
+  },
+  {
+    name: "Amina Yusuf",
+    email: "amina-yusuf@example.com",
+    number: "+254 720 123456"
+  },
+  {
+    name: "John Smith",
+    email: "john-smith@example.com",
+    number: "+1 555 234 5678"
+  },
+  {
+    name: "Marie Dubois",
+    email: "marie-dubois@example.com",
+    number: "+33 612 345 678"
+  },
+  {
+    name: "Carlos García",
+    email: "carlos-garcia@example.com",
+    number: "+52 1 234 567 8901"
+  },
+  {
+    name: "Sara Maktoum",
+    email: "sara-almaktoum@example.com",
+    number: "+971 50 123 4567"
+  },
+  {
+    name: "Emre Ozdemir",
+    email: "emre-ozdemir@example.com",
+    number: "+90 532 345 6789"
+  }
 ];
 
 const DEFAULT_CATEGORIES = [
@@ -407,8 +485,20 @@ function checkIfUserIsLoggedIn() {
  * @async
  */
 async function guestLogin() {
-  localStorage.setItem("activeUser", "guest@test.de");
+  const guestObj = setDummyDataForGuest();
+  let email = 'guest@test.de';
+  localStorage.setItem("activeUser", email);
+  await setItem(email, JSON.stringify(guestObj));
   window.location.href = "summary.html";
+}
+
+function setDummyDataForGuest(){
+  return {
+    name: 'Guest',
+    tasks : DEFAULT_TASKS, 
+    contacts: DEFAULT_CONTACTS,
+    categorys: DEFAULT_CATEGORIES,
+  }
 }
 
 /**
@@ -418,7 +508,7 @@ async function guestLogin() {
  */
 function sendPasswordMail(e) {
   e.preventDefault();
-      
+
   const emailInput = document.getElementById("forgotPasswordInput");
   const userEmail = emailInput.value;
 
