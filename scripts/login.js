@@ -69,8 +69,8 @@ const DEFAULT_CONTACTS = [
     number: "0178654825",
   },
   {
-    name: "Peter Lustig",
-    email: "peter-lustig@gmail.com",
+    name: "Peter Arendt",
+    email: "peter-arendt@gmail.com",
     number: "0179554321",
   },
   {
@@ -485,16 +485,17 @@ function checkIfUserIsLoggedIn() {
  * @async
  */
 async function guestLogin() {
-  const guestObj = setDummyDataForGuest();
+  const userObj = setDummyDataForGuest();
   let email = 'guest@test.de';
   localStorage.setItem("activeUser", email);
-  await setItem(email, JSON.stringify(guestObj));
+  await setItem(email, JSON.stringify(userObj));
   window.location.href = "summary.html";
 }
 
 function setDummyDataForGuest(){
   return {
     name: 'Guest',
+    email: 'guest@test.de',
     tasks : DEFAULT_TASKS, 
     contacts: DEFAULT_CONTACTS,
     categorys: DEFAULT_CATEGORIES,
