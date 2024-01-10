@@ -64,7 +64,7 @@ body {
 }
 
 .moveBackground {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .findTaskBtn {
@@ -126,6 +126,7 @@ body {
 
 .dropArea {
   min-height: 300px;
+  border-radius: 10px;
 }
 
 .popUpBoardBackground {
