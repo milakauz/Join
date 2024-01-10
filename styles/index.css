@@ -251,6 +251,7 @@ form {
   margin-top: 50px;
   gap: 16px;
   color: #a8a8a8;
+  animation: appearFooter 4s forwards;
 }
 
 .footer-container a {
@@ -305,6 +306,18 @@ form {
     opacity: 0;
   }
 
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appearFooter {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
   100% {
     opacity: 1;
   }
