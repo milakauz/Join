@@ -6,3 +6,5 @@ jsdoc.json
 package-lock.json 
 package.json 
 remote-token
+
+.DS_Store

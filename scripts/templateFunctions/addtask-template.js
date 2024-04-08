@@ -186,6 +186,27 @@ function renderContactsHTML(contact, i) {
       </div>
       `;
 }
+function generateContactSelectionHTML(contact, i) {
+  return `
+    <li onclick="removeFromSelection(${
+    i + 1})">
+      <section class="selection-item" id="selection-${i}">
+        <div class="name">
+          <div class="circle" id="${getColorSign(contact["name"])}">
+              ${getInitials(contact["name"])}
+          </div>
+              ${contact["name"]}
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+          <path id="cancel-icon"
+          d="M12.0174 12.1705L17.2604 17.4135M6.77441 17.4135L12.0174 12.1705L6.77441 17.4135ZM17.2604 6.92749L12.0164 12.1705L17.2604 6.92749ZM12.0164 12.1705L6.77441 6.92749L12.0164 12.1705Z"
+          stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </section>
+   </li>
+  `;
+}
 
 /**
  * Generates HTML markup to add a new contact item.
@@ -314,7 +335,6 @@ function generateNewSubtaskHTML(i, subt) {
       </div>
   </li>`;
 }
-
 
 /**
  * Generating the HTML string fot the edit subtask input.

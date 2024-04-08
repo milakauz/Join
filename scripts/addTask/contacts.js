@@ -1,8 +1,8 @@
-const contactsMain = document.getElementById('contactsMain');
-const dialogContact = document.getElementById('dialogContact');
-const editDialogContact = document.getElementById('dialog__editContact');
-const dialogBackground = document.querySelector('.background-dialog');
-const createDialogElements = {
+const contactsBase = document.getElementById('contactsMain');
+const dialogContactBase = document.getElementById('dialogContact');
+const editDialogContactBase = document.getElementById('dialog__editContact');
+const dialogBackgroundTask = document.querySelector('.background-dialog');
+const createDialogElementsTask = {
     createDialog: document.getElementById('dialog__createContact'),
     closeDialog: document.getElementById('dialog__createClose'),
     inputName: document.getElementById('dialog__createNameInput'),
@@ -16,18 +16,18 @@ const createDialogElements = {
  */
 function openCreateContact() {
     window.scrollTo(0, 0);
-    createDialogElements.createDialog.classList.remove('resp-none');
-    createDialogElements.createDialog.classList.add('show-edit-dialog');
-    dialogBackground.classList.remove('d-none');
+    createDialogElementsTask.createDialog.classList.remove('resp-none');
+    createDialogElementsTask.createDialog.classList.add('show-edit-dialog');
+    dialogBackgroundTask.classList.remove('d-none');
 }
 
 /**
  * Closing the dialog window of creating contact.
  */
 function cancelCreateContact() {
-    createDialogElements.createDialog.classList.add('resp-none');
-    createDialogElements.createDialog.classList.remove('show-edit-dialog');
-    dialogBackground.classList.add('d-none');
+    createDialogElementsTask.createDialog.classList.add('resp-none');
+    createDialogElementsTask.createDialog.classList.remove('show-edit-dialog');
+    dialogBackgroundTask.classList.add('d-none');
 }
 
 /**
@@ -36,15 +36,15 @@ function cancelCreateContact() {
  */
 function addNewContact(e) {
     e.preventDefault();
-    let inputName = createDialogElements.inputName.value.trim();
+    let inputName = createDialogElementsTask.inputName.value.trim();
     inputName = capitalizeFirstLetterOfEveryWord(inputName);
-    dialogBackground.classList.add('d-none');
+    dialogBackgroundTask.classList.add('d-none');
     cancelCreateContact();
     showTopDown('Contact created!');
     userObj.contacts.push({
         name: inputName,
-        email: createDialogElements.inputEmail.value.trim(),
-        number: createDialogElements.inputPhone.value.trim(),
+        email: createDialogElementsTask.inputEmail.value.trim(),
+        number: createDialogElementsTask.inputPhone.value.trim(),
     });
     setItem(userObj.email, JSON.stringify(userObj));
     document.getElementById('createContactForm').reset();

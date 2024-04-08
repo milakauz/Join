@@ -25,6 +25,7 @@
   <script defer src="./scripts/sidebar.js"></script>
   <script defer src="./scripts/bootstrap.js"></script>
   <script defer src="./scripts/utils.js"></script>
+  <script defer src="./scripts/contacts.js"></script>
   <script defer src="./scripts/addTask/edit-task.js"></script>
   <script defer src="./scripts/addTask/main.js"></script>
   <script defer src="./scripts/addTask/form-validation.js"></script>
@@ -110,6 +111,7 @@
               <p class="font12 hidden-error">You need to pick a color</p>
             </div>
             <label class="font20 label" for="assigned">Assigned to</label>
+
             <div onclick="toggleAssigndMenu()" class="assigned-container font20 cursor-p" id="assigned-container">
               <div class="assigned-input" id="assigned-input">
                 <span>Select contacts to assign</span>
@@ -117,13 +119,19 @@
               <div class="assigned-button-container" id="assigned-button">
                 <button type="button"><img src="./img/arrow_down.png"></button>
               </div>
+              
             </div>
             <div class="contacts font20 display-none" id="contact-container">
               <ul id="renderContacts">
               </ul>
             </div>
             <div id="hiddenAssignedError"></div>
+            <div class="selection font20 scroll display-none" id="contactSelection">
+              <ul id="selectedContacts">
+              </ul>
+            </div>
           </div>
+
           <div class="bottom-seperator">
             <div class="seperator">
               <svg xmlns="http://www.w3.org/2000/svg" width="2" height="276.5" viewBox="0 0 2 553" fill="none">

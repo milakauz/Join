@@ -27,6 +27,7 @@
   <script defer src="./scripts/utils.js"></script>
   <script defer src="./scripts/storage.js"></script>
   <script defer src="./scripts/boardTouch.js"></script>
+  <script defer src="./scripts/contacts.js"></script>
   <script defer src="./scripts/addTask/main.js"></script>
   <script defer src="./scripts/addTask/contacts.js"></script>
   <script defer src="./scripts/addTask/dom.js"></script>
@@ -45,7 +46,7 @@
 <body onload="initBoard(); includeHTML(); ">
   <div w3-include-html="./templates/sidebar.html"></div>
 
-  <div id="openAddTaskModal" class="modal-backdrop modal dNone">
+  <div id="openAddTaskModal" class="modal-backdrop modal dNone"onclick="closeModal(document.querySelector('.modal')); resetPrioButtons()"">
     <form onsubmit="addTask(); return false" class="popUpBoardTask add-task-form-bord">
       <img src="./img/close.svg" alt="Close Add Task Form" class="boardTaskClose"
         onclick="closeModal(document.querySelector('.modal')); resetPrioButtons();">
@@ -124,6 +125,10 @@
           </div>
           <div class="contacts font20 display-none" id="contact-container">
             <ul id="renderContacts">
+            </ul>
+          </div>
+          <div class="selection font20 scroll display-none" id="contactSelection">
+            <ul id="selectedContacts">
             </ul>
           </div>
         </div>

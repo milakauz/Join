@@ -36,30 +36,59 @@ const DEFAULT_TASKS = [
     assigned: ["Alex Johnson", "Samantha Lee"],
     date: "2024-10-15",
     prio: "urgent",
-    subtasks: [
-      {
-        title: "Design authentication flow",
-        status: "not started"
-      },
-      {
-        title: "Set up database for user information",
-        status: "not started"
-      },
-      {
-        title: "Implement login functionality",
-        status: "not started"
-      },
-      {
-        title: "Implement registration functionality",
-        status: "not started"
-      },
-      {
-        title: "Implement password reset functionality",
-        status: "not started"
-      }
-    ],
+    subtasks: [  ],
     id: 2
-  }  
+  }, 
+  {
+    titel: "User Interface Design",
+    description: "Design the user interface for the main dashboard.",
+    status: "in progress",
+    category: "Design",
+    categoryColor: "#4caf50",
+    assigned: ["Alex", "Jordan"],
+    date: "2024-09-15",
+    prio: "high",
+    subtasks: [
+      { title: "Sketch initial wireframes", property: "unchecked" },
+      { title: "Select color scheme", property: "unchecked" },
+      { title: "Create high-fidelity mockups", property: "unchecked" }
+    ],
+    id: 3
+  },
+  {
+    titel: "Database Optimization",
+    description: "Optimize the current database schema for better performance.",
+    status: "to do",
+    category: "Database",
+    categoryColor: "#f44336",
+    assigned: ["Morgan"],
+    date: "2024-10-05",
+    prio: "low",
+    subtasks: [
+      { title: "Analyze current indices", property: "unchecked" },
+      { title: "Design new indexing strategy", property: "unchecked" },
+      { title: "Implement changes in a test environment", property: "unchecked" }
+    ],
+    id: 4
+  },
+  {
+    titel: "API Development",
+    description: "Develop the RESTful API for user management.",
+    status: "awaiting feedback",
+    category: "Development",
+    categoryColor: "#2196f3",
+    assigned: ["Sam", "Taylor"],
+    date: "2024-11-20",
+    prio: "medium",
+    subtasks: [
+      { title: "Define API endpoints", property: "checked" },
+      { title: "Implement authentication", property: "checked" },
+      { title: "Write documentation", property: "checked" }
+    ],
+    id: 5
+  }
+  
+  
 ];
 
 const DEFAULT_CONTACTS = [

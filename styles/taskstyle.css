@@ -70,6 +70,24 @@
   outline: none;
 }
 
+.scroll {
+  overflow-y: scroll!important;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 20px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
+}
+
 .b-none,
 div > input:focus {
   border: none;
@@ -100,7 +118,11 @@ div > input:focus {
 }
 
 .display-none {
-  display: none;
+  display: none !important;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .cursor-p {
@@ -219,6 +241,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  position: relative;
 }
 
 .bottom-right {
@@ -410,6 +433,30 @@ body {
   height: 51px;
   align-items: center;
   padding: 18px 21px;
+  position: relative;
+}
+
+.selection {
+  bottom: -40px;
+  position: absolute;
+  height: 120px;
+  width: 100%;
+  overflow: scroll;
+  padding-right: 21px;
+}
+
+.selection-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .subtasks-container input,
@@ -559,15 +606,15 @@ ul {
 }
 
 .generatedSubtasks::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 .generatedSubtasks::-webkit-scrollbar-thumb {
   background: #888;
 }
 
-.generatedSubtasks::-webkit-scrollbar-thumb:hover{
-  background: rgb(42,54,71); 
+.generatedSubtasks::-webkit-scrollbar-thumb:hover {
+  background: rgb(42, 54, 71);
 }
 
 .category-dropdown-items {
@@ -605,6 +652,10 @@ ul {
 }
 
 li {
+  list-style: none;
+}
+
+li:hover {
   cursor: pointer;
 }
 
@@ -639,6 +690,7 @@ li {
   width: 422px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+  z-index: 990;
 }
 
 .edit-contact-item {
@@ -1342,7 +1394,7 @@ li {
   .label {
     font-size: 16px;
   }
- 
+
   #generatedInput,
   #generatedSubtaskInput,
   .subtasks-input {
@@ -1387,7 +1439,7 @@ li {
     width: 230px;
   }
 
-  .add-task-section form, 
+  .add-task-section form,
   #addTaskHeadline {
     margin-left: 243px;
   }

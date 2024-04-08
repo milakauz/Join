@@ -7,7 +7,7 @@ function showBoardButton() {
 }
 
 /**
- * Toggling the display and border styles of the category menu, 
+ * Toggling the display and border styles of the category menu,
  * and adding event listeners for handling clicks outside of the menu and stopping event propagation.
  */
 function toggleCategoryMenu() {
@@ -15,19 +15,18 @@ function toggleCategoryMenu() {
   const categoryContainer = document.getElementById("category-container");
   const input = document.querySelector(".category-input input");
   toggleDisplayAndBorder(category, categoryContainer);
- 
+
   if (input) {
-    return
+    return;
   }
 
-  document.addEventListener('click', handleDocumentClick);
-  category.addEventListener('click', stopPropagation);
+  document.addEventListener("click", handleDocumentClick);
+  category.addEventListener("click", stopPropagation);
 }
-
 
 /**
  * Handling click events on the document.
- * If the clicked element is outside the category container, it adds a new categpry menu, 
+ * If the clicked element is outside the category container, it adds a new categpry menu,
  * and removing its border.
  *
  * @param {*} event
@@ -35,14 +34,13 @@ function toggleCategoryMenu() {
 function handleDocumentClick(event) {
   const categoryContainer = document.getElementById("category-container");
   const category = document.getElementById("renderCategorys");
-  
+
   if (!categoryContainer.contains(event.target)) {
     addNewCategory();
     category.classList.add("display-none");
     categoryContainer.classList.remove("remove-border");
   }
 }
-
 
 /**
  * Stopping the propagation of the given event.
@@ -52,7 +50,6 @@ function handleDocumentClick(event) {
 function stopPropagation(event) {
   event.stopPropagation();
 }
-
 
 /**
  * Toggling the display and border styles of the category and its containner.
@@ -245,7 +242,78 @@ function changeCheckbox(i) {
   let checkboxImg = document.getElementById(`checkboxImg${i}`);
   if (checkboxImg.getAttribute("src") === "./img/checkbox.png") {
     checkboxImg.src = "./img/checkbox_checked.png";
+    renderContactSelection(i);
   } else {
     checkboxImg.src = "./img/checkbox.png";
+    remove(i);
+  }
+}
+
+function renderContactSelection(i) {
+  let container = document.getElementById("contactSelection");
+  container.classList.remove("display-none");
+  const contact = userObj.contacts[i - 1];
+  if (i === 0) {
+    container.innerHTML += `
+    <li onclick="removeFromSelection(${i})">
+      <section id="selection-${i}" class="selection-item">
+        <div class="name">
+          <div class="circle" id="${getColorSign("Guest User")}">
+            ${getInitials("Guest User")}
+          </div>
+               You
+        </div>
+        <svg
+        xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+          <path id="cancel-icon"
+         d="M12.0174 12.1705L17.2604 17.4135M6.77441 17.4135L12.0174 12.1705L6.77441 17.4135ZM17.2604 6.92749L12.0164 12.1705L17.2604 6.92749ZM12.0164 12.1705L6.77441 6.92749L12.0164 12.1705Z"
+         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </section>
+    </li>
+    `;
+    generateCircleColor();
+  } else {
+    container.innerHTML += generateContactSelectionHTML(contact, i);
+    generateCircleColor();
+  }
+}
+
+function removeFromSelection(i) {
+  if (i === 0) {
+    changeCheckbox(i);
+    var item = document.getElementById(`selection-${i}`);
+    if (item) {
+      var parent = item.parentNode;
+      parent.removeChild(item);
+      parent.remove();
+    }
+  } else {
+    changeCheckbox(i - 1);
+    var item = document.getElementById(`selection-${i - 1}`);
+    if (item) {
+      var parent = item.parentNode;
+      parent.removeChild(item);
+      parent.remove();
+    }
+  }
+}
+
+function remove(i){
+  console.log(i);
+  if (i === 0) {
+    var item = document.getElementById(`selection-${i}`);
+    if (item) {
+      var parent = item.parentNode;
+      parent.removeChild(item);
+      parent.remove();
+    }
+  } else {
+    var item = document.getElementById(`selection-${i}`);
+    if (item) {
+      var parent = item.parentNode;
+      parent.removeChild(item);
+      parent.remove();
+    }
   }
 }
