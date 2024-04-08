@@ -229,7 +229,7 @@ function htmlTemplateDone(element, i, priority) {
  * @requires userObj: An object containing user tasks.
  */
 function htmlTemplatePopUpTask(i, priority) {
-  return `<div class="popUpBoardTask px-4 pt-4 pb-1 rounded-4 d-flex flex-column align-items-start">
+  return `<div onclick="event.stopPropagation()" class="popUpBoardTask px-4 pt-4 pb-1 rounded-4 d-flex flex-column align-items-start">
           <img onclick="boardClosePopUpTask()" class="boardTaskClose cursorPointer" src="./img/closeIt.svg" alt="close">
           <div class="boardTaskEdit d-flex">
               <img class="cursorPointer heightWidth35Px" src="./img/deleteButton.svg" alt="delete" onclick="deleteTask(${i})">

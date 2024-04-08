@@ -46,8 +46,8 @@
 <body onload="initBoard(); includeHTML(); ">
   <div w3-include-html="./templates/sidebar.html"></div>
 
-  <div id="openAddTaskModal" class="modal-backdrop modal dNone"onclick="closeModal(document.querySelector('.modal')); resetPrioButtons()"">
-    <form onsubmit="addTask(); return false" class="popUpBoardTask add-task-form-bord">
+  <div id="openAddTaskModal" class="modal-backdrop modal dNone"onclick="closeModal(document.querySelector('.modal')); resetPrioButtons()">
+    <form onsubmit="addTask(); return false" onclick="event.stopPropagation()" class="popUpBoardTask add-task-form-bord">
       <img src="./img/close.svg" alt="Close Add Task Form" class="boardTaskClose"
         onclick="closeModal(document.querySelector('.modal')); resetPrioButtons();">
       <button type="submit" id="submit-btn-responsive"
@@ -178,7 +178,7 @@
   </div>
 
 
-  <div id="popUpBoard" class="dNone popUpBoardBackground display-flex justify-content-center align-items-center"></div>
+  <div id="popUpBoard" class="dNone popUpBoardBackground display-flex justify-content-center align-items-center" onclick="boardClosePopUpTask()"></div>
   <div class="parentDiv">
     <div class="d-flex justify-content-between mb-5 headline-container-board">
       <div class="font-61 size3Em bold headlineBoard">
